@@ -2501,3 +2501,62 @@ button { transition-timing-function: cubic-bezier(.2,.7,.25,1); }
   .object-zoom-overlay,.object-zoom-dialog,.zoom-bible-model,.zoom-star-model { animation:none!important; }
   .pen-model-preview { filter:grayscale(1); }
 }
+
+
+/* Graceful fallback instead of exposing the third-party WebGL error screen. */
+.webgl-unavailable-home {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  width:min(100%,410px);
+  min-height:170px;
+  color:#ccc9c2;
+  text-align:center;
+  background:radial-gradient(ellipse at 50% 55%,rgba(255,255,255,.065),transparent 68%);
+}
+.webgl-unavailable-home > span {
+  display:grid; place-items:center;
+  width:72px; height:72px;
+  border:1px solid rgba(255,255,255,.32);
+  border-radius:50%;
+  font:16px 'DM Mono',monospace;
+  letter-spacing:.1em;
+  color:#efede6;
+  box-shadow:0 0 32px rgba(255,255,255,.04),inset 0 0 22px rgba(255,255,255,.025);
+}
+.webgl-unavailable-home small {
+  max-width:205px;
+  font:9px/1.7 'DM Mono',monospace;
+  letter-spacing:.07em;
+  color:#8b8881;
+}
+.webgl-unavailable-detail {
+  position:relative; z-index:2;
+  display:flex; flex-direction:column; align-items:flex-start; justify-content:center;
+  width:min(100%,430px); padding:clamp(18px,3vw,36px);
+  border:1px solid rgba(255,255,255,.16);
+  background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.01));
+  box-shadow:inset 0 1px rgba(255,255,255,.05),0 18px 65px rgba(0,0,0,.45);
+}
+.webgl-fallback-mark {
+  display:grid; place-items:center; width:58px; height:58px; margin-bottom:22px;
+  border:1px solid rgba(255,255,255,.35); border-radius:50%;
+  color:#e9e7e0; font:12px 'DM Mono',monospace; letter-spacing:.1em;
+}
+.webgl-unavailable-detail h3 {
+  margin:0 0 12px; max-width:350px;
+  font:400 clamp(21px,3vw,31px)/1.13 'Space Grotesk',sans-serif; letter-spacing:-.035em;
+  color:#f0eee8;
+}
+.webgl-unavailable-detail p {
+  margin:0; max-width:390px; color:#aaa7a0; font:13px/1.8 'DM Sans',sans-serif;
+}
+.webgl-unavailable-detail a {
+  margin-top:23px; padding:0 0 7px; display:inline-block;
+  border-bottom:1px solid rgba(255,255,255,.38);
+  color:#eeece6; font:10px 'DM Mono',monospace; letter-spacing:.055em;
+  text-decoration:none; transition:color .2s,border-color .2s;
+}
+.webgl-unavailable-detail a:hover { color:#fff; border-color:#fff; }
