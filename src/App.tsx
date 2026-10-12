@@ -324,6 +324,20 @@ function App() {
     '--bible-size': `${appearance.readingSize}px`,
   } as CSSProperties
 
+  useEffect(() => {
+    if (!focusedObject) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setFocusedObject(null)
+    }
+    window.addEventListener('keydown', closeOnEscape)
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener('keydown', closeOnEscape)
+    }
+  }, [focusedObject])
+
   useEffect(() => { localStorage.setItem('star-room-notes', JSON.stringify(notes)) }, [notes])
   useEffect(() => { localStorage.setItem('star-room-folders', JSON.stringify(folders)) }, [folders])
   useEffect(() => { localStorage.setItem('star-room-habits', JSON.stringify(habits)) }, [habits])
