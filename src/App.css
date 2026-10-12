@@ -1944,7 +1944,7 @@ button { transition-timing-function: cubic-bezier(.2,.7,.25,1); }
 .story-text-link { margin-top:34px; padding:0 0 9px; display:flex; gap:25px; align-items:center; color:#efede7; border:0; border-bottom:1px solid #66635d; background:none; cursor:pointer; font:11px 'DM Mono',monospace; letter-spacing:.08em; }
 .story-text-link span { transition:transform .25s; } .story-text-link:hover span { transform:translate(4px,-3px); }
 .story-hands { position:relative; display:grid; place-items:center; min-height:480px; }
-.story-hands img { position:relative; z-index:1; width:min(100%,510px); max-height:590px; object-fit:contain; filter:grayscale(1) contrast(1.2) drop-shadow(0 22px 35px #000); animation: story-hand-breathe 7s ease-in-out infinite; }
+.story-hands img { position:relative; z-index:1; width:min(100%,510px); max-height:590px; object-fit:contain; filter:grayscale(1) invert(1) contrast(1.18) drop-shadow(0 22px 35px #000); animation: story-hand-breathe 7s ease-in-out infinite; }
 .orbit { position:absolute; width:88%; aspect-ratio:1; border:1px solid rgba(255,255,255,.13); border-radius:50%; transform:rotate(-28deg) scaleY(.28); }
 .orbit-two { width:75%; transform:rotate(42deg) scaleY(.4); border-style:dashed; opacity:.55; }
 .story-vertical-note { position:absolute; right:0; top:22%; writing-mode:vertical-rl; color:#6c6a64; font:8px 'DM Mono',monospace; letter-spacing:.2em; }
@@ -2017,4 +2017,15 @@ button { transition-timing-function: cubic-bezier(.2,.7,.25,1); }
  .story-hands img,.story-scroll-cue span { animation:none!important; }
  .scroll-reveal { opacity:1!important; transform:none!important; transition:none!important; }
  .story-object-section *, .story-text-link span { transition:none!important; }
+}
+
+
+/* Correções pontuais: gravura pronta com fundo transparente e capa quase preta. */
+.bible-book-cover {
+  background-color: #030303 !important;
+  background-image:
+    linear-gradient(90deg, rgba(0,0,0,.72) 0%, rgba(255,255,255,.025) 2.5%, transparent 8%, transparent 91%, rgba(0,0,0,.4) 100%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.012) 0px, rgba(255,255,255,.012) 1px, rgba(0,0,0,.025) 2px, transparent 4px),
+    radial-gradient(ellipse at 36% 24%, rgba(255,255,255,.02), transparent 48%),
+    linear-gradient(140deg, #160d08 0%, #090605 42%, #020202 100%) !important;
 }
