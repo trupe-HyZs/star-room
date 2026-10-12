@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 430" role="img" aria-labelledby="title desc">
+<title id="title">Livros em gravura preto e branco</title>
+<desc id="desc">Uma pilha de livros antigos e um livro aberto, ilustrados como gravura de tinta.</desc>
+<defs>
+  <pattern id="bookHatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(22)">
+    <path d="M0 0V8 M4 0V8" stroke="#fff" stroke-width="1" opacity=".8"/>
+  </pattern>
+  <pattern id="pageLines" width="9" height="7" patternUnits="userSpaceOnUse">
+    <path d="M0 2H9 M0 5H6" stroke="#111" stroke-width=".9" opacity=".55"/>
+  </pattern>
+</defs>
+<!-- White sticker border silhouette -->
+<path d="M67 102L118 65L437 67L479 101L466 165L497 207L476 264L512 326L463 354L413 382L293 408L180 397L73 362L54 306L68 248L45 199Z" fill="#fff" stroke="#101010" stroke-width="5" stroke-linejoin="round"/>
+<!-- top closed book -->
+<path d="M104 92L394 58L447 86L432 151L129 177L88 145Z" fill="#080808" stroke="#080808" stroke-width="4" stroke-linejoin="round"/>
+<path d="M129 177L432 151L429 178L132 207L91 174L88 145Z" fill="#fff" stroke="#090909" stroke-width="4" stroke-linejoin="round"/>
+<path d="M132 184L429 157M135 190L428 164M138 196L427 171" stroke="#111" stroke-width="2"/>
+<path d="M104 92L394 58L447 86L432 151L129 177L88 145Z" fill="url(#bookHatch)" opacity=".72"/>
+<path d="M111 101L391 70M114 111L392 80M119 121L393 90M121 131L395 100" stroke="#fff" stroke-width="1.5" opacity=".6"/>
+<!-- middle book -->
+<path d="M84 151L413 125L463 158L449 221L112 249L67 212Z" fill="#080808" stroke="#080808" stroke-width="4" stroke-linejoin="round"/>
+<path d="M112 249L449 221L446 246L115 278L68 240L67 212Z" fill="#fff" stroke="#111" stroke-width="4" stroke-linejoin="round"/>
+<path d="M115 256L446 228M117 263L445 235M118 270L444 242" stroke="#111" stroke-width="2"/>
+<path d="M84 151L413 125L463 158L449 221L112 249L67 212Z" fill="url(#bookHatch)" opacity=".62"/>
+<!-- bottom book -->
+<path d="M76 218L398 190L453 226L438 286L103 319L58 281Z" fill="#111" stroke="#111" stroke-width="4" stroke-linejoin="round"/>
+<path d="M103 319L438 286L436 313L106 345L58 309L58 281Z" fill="#fff" stroke="#111" stroke-width="4" stroke-linejoin="round"/>
+<path d="M106 326L436 294M107 333L435 301M107 340L434 308" stroke="#111" stroke-width="2"/>
+<path d="M76 218L398 190L453 226L438 286L103 319L58 281Z" fill="url(#bookHatch)" opacity=".55"/>
+<!-- open book pages -->
+<path d="M66 304C123 279 193 281 277 318C348 279 422 283 493 310L481 368C407 346 342 352 279 398C208 355 134 350 78 372Z" fill="#fff" stroke="#080808" stroke-width="5" stroke-linejoin="round"/>
+<path d="M78 316C139 297 202 302 276 331L276 385C203 348 140 344 83 359Z" fill="#fff" stroke="#111" stroke-width="2"/>
+<path d="M282 331C354 301 421 300 482 321L471 357C410 342 349 346 282 385Z" fill="#fff" stroke="#111" stroke-width="2"/>
+<path d="M84 321C144 306 205 311 270 338L270 377C207 346 146 342 87 354Z" fill="url(#pageLines)"/>
+<path d="M288 338C352 312 414 309 475 326L466 352C406 338 347 344 288 377Z" fill="url(#pageLines)"/>
+<path d="M278 319C282 340 282 368 279 398" fill="none" stroke="#111" stroke-width="5" stroke-linecap="round"/>
+<!-- engraved page edges and small hatch details -->
+<path d="M79 365C145 343 211 351 275 389M285 389C347 349 411 345 478 361" fill="none" stroke="#111" stroke-width="2"/>
+<path d="M70 333L62 349M80 329L74 350M489 330L494 348M478 326L485 350 M95 235L103 243M104 230L112 239M119 164L126 171M128 159L135 167" stroke="#111" stroke-width="2"/>
+</svg>
