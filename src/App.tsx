@@ -727,7 +727,21 @@ function App() {
           <button className={`story-object-section story-notes scroll-reveal ${launchingSection === 'notes' ? 'is-launching' : ''}`} onClick={() => launchSection('notes', 'anotacoes')} aria-label="Entrar nas anotações">
             <span className="story-section-index">02</span>
             <span className="story-object pen-object-art" aria-hidden="true">
-              <span className="pen-model3d"><span className="pen-depth"/><img src="/ink-pen.svg" alt=""/></span>
+              <span className="pen-model3d" aria-label="Caneta metálica tridimensional">
+                <span className="pen-penumbra"/>
+                <span className="pen-shaft">
+                  <span className="pen-shaft-reflection"/>
+                  <span className="pen-ring pen-ring-one"/>
+                  <span className="pen-ring pen-ring-two"/>
+                  <span className="pen-ring pen-ring-three"/>
+                  <span className="pen-clip"/>
+                  <span className="pen-shaft-engraving"/>
+                </span>
+                <span className="pen-nib"/>
+                <span className="pen-nib-glint"/>
+                <span className="pen-tail"/>
+                <span className="pen-tail-band"/>
+              </span>
             </span>
             <span className="story-object-copy"><span className="story-kicker">UM ESPAÇO PARA TI</span><strong>Coloca os teus<br/>pensamentos no papel.</strong><p>Orações, ideias, planos e tudo o que não queres esquecer.</p><span className="story-action-hint">TOCA PARA ESCREVER <b>↗</b></span></span>
             <span className="story-margin-note">Escreve.<br/>Solta.<br/>Guarda.</span>
