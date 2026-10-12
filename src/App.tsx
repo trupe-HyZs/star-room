@@ -200,6 +200,8 @@ function extractVerses(payload: unknown): Verse[] {
 
 function App() {
   const [page, setPage] = useState<Page>('inicio')
+  const [launchingSection, setLaunchingSection] = useState<string | null>(null)
+  const launchTimer = useRef<number | null>(null)
   const [bibleBookOpen, setBibleBookOpen] = useState(false)
   const [bibleOpening, setBibleOpening] = useState(false)
   const [bookTilt, setBookTilt] = useState({ x: 0, y: 0 })
@@ -469,6 +471,21 @@ function App() {
     window.setTimeout(() => setToast(''), 2400)
   }, [])
 
+  const launchSection = (id: string, destination: Page) => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches || appearance.motion === 'minimal'
+    if (reduced) {
+      setPage(destination)
+      return
+    }
+    setLaunchingSection(id)
+    if (launchTimer.current !== null) window.clearTimeout(launchTimer.current)
+    launchTimer.current = window.setTimeout(() => {
+      setPage(destination)
+      setLaunchingSection(null)
+      launchTimer.current = null
+    }, 560)
+  }
+
   const openBibleAt = (id: number, chapterNumber = 1) => {
     setBookId(id)
     setChapter(chapterNumber)
@@ -695,30 +712,46 @@ function App() {
             <span className="story-scroll-cue"><span/> DESLIZA PARA DESCOBRIR</span>
           </section>
 
-          <button className="story-object-section story-bible scroll-reveal" onClick={() => setPage('biblia')} aria-label="Entrar na Bíblia">
+          <button className={`story-object-section story-bible scroll-reveal ${launchingSection === 'bible' ? 'is-launching' : ''}`} onClick={() => launchSection('bible', 'biblia')} aria-label="Entrar na Bíblia">
             <span className="story-section-index">01</span>
-            <span className="story-object bible-object-art" aria-hidden="true"><span className="bible-spine"/><img src="/bible-sketch.png" alt=""/></span>
+            <span className="story-object bible-object-art" aria-hidden="true">
+              <span className="home-bible-model">
+                <span className="home-bible-pages"/><span className="home-bible-back"/><span className="home-bible-spine"/>
+                <span className="home-bible-cover"><span>HOLY BIBLE</span></span>
+              </span>
+            </span>
             <span className="story-object-copy"><span className="story-kicker">A PALAVRA DE DEUS</span><strong>O livro sagrado.</strong><p>Um lugar para ler, refletir e guardar aquilo que fala contigo.</p><span className="story-action-hint">TOCA NO LIVRO PARA ABRIR <b>↗</b></span></span>
             <span className="story-margin-note">Ler.<br/>Meditar.<br/>Viver.</span>
           </button>
 
-          <button className="story-object-section story-notes scroll-reveal" onClick={() => setPage('anotacoes')} aria-label="Entrar nas anotações">
+          <button className={`story-object-section story-notes scroll-reveal ${launchingSection === 'notes' ? 'is-launching' : ''}`} onClick={() => launchSection('notes', 'anotacoes')} aria-label="Entrar nas anotações">
             <span className="story-section-index">02</span>
-            <span className="story-object pen-object-art" aria-hidden="true"><img src="/ink-pen.svg" alt=""/></span>
+            <span className="story-object pen-object-art" aria-hidden="true">
+              <span className="pen-model3d"><span className="pen-depth"/><img src="/ink-pen.svg" alt=""/></span>
+            </span>
             <span className="story-object-copy"><span className="story-kicker">UM ESPAÇO PARA TI</span><strong>Coloca os teus<br/>pensamentos no papel.</strong><p>Orações, ideias, planos e tudo o que não queres esquecer.</p><span className="story-action-hint">TOCA PARA ESCREVER <b>↗</b></span></span>
             <span className="story-margin-note">Escreve.<br/>Solta.<br/>Guarda.</span>
           </button>
 
-          <button className="story-object-section story-goals scroll-reveal" onClick={() => setPage('habitos')} aria-label="Entrar nos hábitos e metas">
+          <button className={`story-object-section story-goals scroll-reveal ${launchingSection === 'goals' ? 'is-launching' : ''}`} onClick={() => launchSection('goals', 'habitos')} aria-label="Entrar nos hábitos e metas">
             <span className="story-section-index">03</span>
-            <span className="story-object star-object-art" aria-hidden="true"><span className="star-aura"/><img src="/pixel-star.png" alt=""/></span>
+            <span className="story-object star-object-art" aria-hidden="true">
+              <span className="star-aura"/>
+              <span className="star-model3d">
+                <img className="star-depth star-depth-4" src="/pixel-star.png" alt=""/>
+                <img className="star-depth star-depth-3" src="/pixel-star.png" alt=""/>
+                <img className="star-depth star-depth-2" src="/pixel-star.png" alt=""/>
+                <img className="star-depth star-depth-1" src="/pixel-star.png" alt=""/>
+                <img className="star-front" src="/pixel-star.png" alt=""/>
+              </span>
+            </span>
             <span className="story-object-copy"><span className="story-kicker">PEQUENOS PASSOS, GRANDES MUDANÇAS</span><strong>E as tuas metas<br/>e objetivos?</strong><p>Vamos chegar lá? Um dia de cada vez, ao teu ritmo.</p><span className="story-action-hint">TOCA NA ESTRELA <b>↗</b></span></span>
             <span className="story-margin-note">Sonha.<br/>Planeia.<br/>Constrói.</span>
           </button>
 
-          <button className="story-object-section story-tracker scroll-reveal" onClick={() => setPage('habitos')} aria-label="Abrir tracker mensal e lembretes">
+          <button className={`story-object-section story-tracker scroll-reveal ${launchingSection === 'tracker' ? 'is-launching' : ''}`} onClick={() => launchSection('tracker', 'habitos')} aria-label="Abrir tracker mensal e lembretes">
             <span className="story-section-index">04</span>
-            <span className="story-object tracker-object-art" aria-hidden="true"><img src="/habit-tracker.svg" alt=""/></span>
+            <span className="story-object tracker-object-art" aria-hidden="true"><span className="tracker-notebook-model"><span className="tracker-notebook-pages"/><img src="/habit-tracker.svg" alt=""/></span></span>
             <span className="story-object-copy"><span className="story-kicker">O TEU CADERNO DE ROTINA</span><strong>O que fazes hoje<br/>constrói o amanhã.</strong><p>Hábitos, rotina e lembretes num tracker mensal que vais preenchendo.</p><span className="story-action-hint">ABRIR O TEU TRACKER <b>↗</b></span></span>
           </button>
           <footer className="story-footer"><img src="/star-logo.png" alt="STAR"/><span>O TEU QUARTO DIGITAL</span><span>FEITO PARA SER TEU.</span><button onClick={() => setPage('ajustes')}>PERSONALIZAR ↗</button></footer>
