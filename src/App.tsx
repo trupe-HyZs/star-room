@@ -44,6 +44,8 @@ function localDateKey(date: Date) {
 
 const initialFolders: Category[] = ['Devocional', 'Célula', 'Aula IV', 'outros...']
 const fallbackDailyVerse = 'Será como árvore plantada junto a ribeiros de águas, que dá fruto no tempo certo.'
+const penModelViewerUrl = 'https://www.innerscene.com/tools/3d-viewer?url=https%3A%2F%2Fwww.innerscene.com%2Fapi%2Flibrary%2Fnib-pen-writing-instrument-f4ed7ea9%2Fdownload&embedded=1'
+type FocusedObject = 'bible' | 'notes' | 'goals' | 'tracker'
 // This is only a preview built from the user's existing Canva sample. It is never labeled as official NVI text.
 const canvaPsalm23Preview: Verse[] = [
   { verse: 1, text: 'O Senhor é o meu pastor, nada me faltará.' },
@@ -200,6 +202,7 @@ function extractVerses(payload: unknown): Verse[] {
 
 function App() {
   const [page, setPage] = useState<Page>('inicio')
+  const [focusedObject, setFocusedObject] = useState<FocusedObject | null>(null)
   const [launchingSection, setLaunchingSection] = useState<string | null>(null)
   const launchTimer = useRef<number | null>(null)
   const [bibleBookOpen, setBibleBookOpen] = useState(false)
@@ -471,19 +474,33 @@ function App() {
     window.setTimeout(() => setToast(''), 2400)
   }, [])
 
-  const launchSection = (id: string, destination: Page) => {
+  const launchSection = (id: FocusedObject) => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches || appearance.motion === 'minimal'
     if (reduced) {
-      setPage(destination)
+      setFocusedObject(id)
       return
     }
     setLaunchingSection(id)
     if (launchTimer.current !== null) window.clearTimeout(launchTimer.current)
     launchTimer.current = window.setTimeout(() => {
-      setPage(destination)
+      setFocusedObject(id)
       setLaunchingSection(null)
       launchTimer.current = null
     }, 560)
+  }
+
+  const enterFocusedObject = () => {
+    if (!focusedObject) return
+    const destination: Record<FocusedObject, Page> = {
+      bible: 'biblia',
+      notes: 'anotacoes',
+      goals: 'habitos',
+      tracker: 'habitos',
+    }
+    const target = destination[focusedObject]
+    setFocusedObject(null)
+    setLaunchingSection(null)
+    setPage(target)
   }
 
   const openBibleAt = (id: number, chapterNumber = 1) => {
@@ -712,7 +729,7 @@ function App() {
             <span className="story-scroll-cue"><span/> DESLIZA PARA DESCOBRIR</span>
           </section>
 
-          <button className={`story-object-section story-bible scroll-reveal ${launchingSection === 'bible' ? 'is-launching' : ''}`} onClick={() => launchSection('bible', 'biblia')} aria-label="Entrar na Bíblia">
+          <button className={`story-object-section story-bible scroll-reveal ${launchingSection === 'bible' ? 'is-launching' : ''}`} onClick={() => launchSection('bible')} aria-label="Entrar na Bíblia">
             <span className="story-section-index">01</span>
             <span className="story-object bible-object-art" aria-hidden="true">
               <span className="home-bible-model">
@@ -724,30 +741,18 @@ function App() {
             <span className="story-margin-note">Ler.<br/>Meditar.<br/>Viver.</span>
           </button>
 
-          <button className={`story-object-section story-notes scroll-reveal ${launchingSection === 'notes' ? 'is-launching' : ''}`} onClick={() => launchSection('notes', 'anotacoes')} aria-label="Entrar nas anotações">
+          <button className={`story-object-section story-notes scroll-reveal ${launchingSection === 'notes' ? 'is-launching' : ''}`} onClick={() => launchSection('notes')} aria-label="Entrar nas anotações">
             <span className="story-section-index">02</span>
             <span className="story-object pen-object-art" aria-hidden="true">
-              <span className="pen-model3d" aria-label="Caneta metálica tridimensional">
-                <span className="pen-penumbra"/>
-                <span className="pen-shaft">
-                  <span className="pen-shaft-reflection"/>
-                  <span className="pen-ring pen-ring-one"/>
-                  <span className="pen-ring pen-ring-two"/>
-                  <span className="pen-ring pen-ring-three"/>
-                  <span className="pen-clip"/>
-                  <span className="pen-shaft-engraving"/>
-                </span>
-                <span className="pen-nib"/>
-                <span className="pen-nib-glint"/>
-                <span className="pen-tail"/>
-                <span className="pen-tail-band"/>
+              <span className="pen-model3d pen-model3d-real" aria-label="Modelo 3D interativo de caneta-tinteiro">
+                <iframe className="pen-model-preview" src={penModelViewerUrl} title="Prévia 3D de caneta-tinteiro" loading="lazy" allow="fullscreen" />
               </span>
             </span>
             <span className="story-object-copy"><span className="story-kicker">UM ESPAÇO PARA TI</span><strong>Coloca os teus<br/>pensamentos no papel.</strong><p>Orações, ideias, planos e tudo o que não queres esquecer.</p><span className="story-action-hint">TOCA PARA ESCREVER <b>↗</b></span></span>
             <span className="story-margin-note">Escreve.<br/>Solta.<br/>Guarda.</span>
           </button>
 
-          <button className={`story-object-section story-goals scroll-reveal ${launchingSection === 'goals' ? 'is-launching' : ''}`} onClick={() => launchSection('goals', 'habitos')} aria-label="Entrar nos hábitos e metas">
+          <button className={`story-object-section story-goals scroll-reveal ${launchingSection === 'goals' ? 'is-launching' : ''}`} onClick={() => launchSection('goals')} aria-label="Entrar nos hábitos e metas">
             <span className="story-section-index">03</span>
             <span className="story-object star-object-art" aria-hidden="true">
               <span className="star-aura"/>
@@ -763,7 +768,7 @@ function App() {
             <span className="story-margin-note">Sonha.<br/>Planeia.<br/>Constrói.</span>
           </button>
 
-          <button className={`story-object-section story-tracker scroll-reveal ${launchingSection === 'tracker' ? 'is-launching' : ''}`} onClick={() => launchSection('tracker', 'habitos')} aria-label="Abrir tracker mensal e lembretes">
+          <button className={`story-object-section story-tracker scroll-reveal ${launchingSection === 'tracker' ? 'is-launching' : ''}`} onClick={() => launchSection('tracker')} aria-label="Abrir tracker mensal e lembretes">
             <span className="story-section-index">04</span>
             <span className="story-object tracker-object-art" aria-hidden="true"><span className="tracker-notebook-model"><span className="tracker-notebook-pages"/><img src="/habit-tracker.svg" alt=""/></span></span>
             <span className="story-object-copy"><span className="story-kicker">O TEU CADERNO DE ROTINA</span><strong>O que fazes hoje<br/>constrói o amanhã.</strong><p>Hábitos, rotina e lembretes num tracker mensal que vais preenchendo.</p><span className="story-action-hint">ABRIR O TEU TRACKER <b>↗</b></span></span>
@@ -971,6 +976,27 @@ function App() {
           </div>
         </section>}
       </div>
+      {focusedObject && <div className="object-zoom-overlay" role="presentation" onClick={() => setFocusedObject(null)}>
+        <section className={`object-zoom-dialog zoomed-${focusedObject}`} role="dialog" aria-modal="true" aria-labelledby="object-zoom-title" onClick={event => event.stopPropagation()}>
+          <button className="object-zoom-close" onClick={() => setFocusedObject(null)} aria-label="Voltar ao quarto">×</button>
+          <div className="object-zoom-scene">
+            {focusedObject === 'notes' && <iframe className="pen-model-viewer" src={penModelViewerUrl} title="Modelo 3D interativo de caneta-tinteiro" allow="fullscreen" allowFullScreen />}
+            {focusedObject === 'bible' && <span className="zoom-bible-model" aria-hidden="true"><span className="home-bible-pages"/><span className="home-bible-back"/><span className="home-bible-spine"/><span className="home-bible-cover"><span>HOLY BIBLE</span></span></span>}
+            {focusedObject === 'goals' && <span className="zoom-star-model" aria-hidden="true"><img src="/pixel-star.png" alt=""/><i/><i/><i/></span>}
+            {focusedObject === 'tracker' && <span className="zoom-tracker-model" aria-hidden="true"><span/><img src="/habit-tracker.svg" alt=""/></span>}
+          </div>
+          <div className="object-zoom-copy">
+            <span className="story-kicker">{({ bible: 'A PALAVRA DE DEUS', notes: 'UM ESPAÇO PARA TI', goals: 'PEQUENOS PASSOS', tracker: 'O TEU CADERNO DE ROTINA' } as Record<FocusedObject,string>)[focusedObject]}</span>
+            <h2 id="object-zoom-title">{({ bible: 'O livro sagrado.', notes: 'Coloca os teus pensamentos no papel.', goals: 'E as tuas metas e objetivos?', tracker: 'Constrói a tua rotina.' } as Record<FocusedObject,string>)[focusedObject]}</h2>
+            <p>{({ bible: 'Gira o livro e entra na tua leitura, com anotações e grifamento.', notes: 'Roda a caneta 3D com o cursor ou com o toque. Quando estiveres pronto, abre o teu bloco de notas.', goals: 'Uma estrela para as coisas que queres construir, um dia de cada vez.', tracker: 'Marca os teus hábitos e consulta os lembretes do mês.' } as Record<FocusedObject,string>)[focusedObject]}</p>
+            <div className="object-zoom-actions">
+              <button className="object-zoom-enter" onClick={enterFocusedObject}>{({ bible: 'Entrar na Bíblia', notes: 'Abrir Anotações', goals: 'Abrir Hábitos', tracker: 'Abrir tracker' } as Record<FocusedObject,string>)[focusedObject]} <span>↗</span></button>
+              <button className="object-zoom-back" onClick={() => setFocusedObject(null)}>Voltar ao quarto</button>
+            </div>
+            {focusedObject === 'notes' && <small className="object-model-credit">Modelo 3D de caneta-tinteiro: Innerscene · CC0</small>}
+          </div>
+        </section>
+      </div>}
       {toast && <div className="toast-message" role="status"><span>✓</span>{toast}</div>}
     </main>
   )
