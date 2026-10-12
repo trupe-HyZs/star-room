@@ -1,18 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 220" fill="none">
-<defs><linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f2f0e8"/><stop offset=".32" stop-color="#8c8a84"/><stop offset=".55" stop-color="#292929"/><stop offset=".82" stop-color="#d9d6ce"/><stop offset="1" stop-color="#686660"/></linearGradient><filter id="shadow" x="-30%" y="-40%" width="160%" height="180%"><feGaussianBlur stdDeviation="5"/></filter></defs>
-<ellipse cx="213" cy="166" rx="170" ry="15" fill="#000" opacity=".8" filter="url(#shadow)" transform="rotate(-24 213 166)"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 220" fill="none" role="img" aria-labelledby="title desc">
+<title id="title">Caneta metálica em preto e branco</title>
+<desc id="desc">Caneta prateada diagonal, com volume, brilho e sombra em estilo monocromático.</desc>
+<defs>
+ <linearGradient id="barrel" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#f6f4ed"/><stop offset=".16" stop-color="#a7a59f"/><stop offset=".31" stop-color="#fff"/><stop offset=".48" stop-color="#585753"/><stop offset=".63" stop-color="#e2e0d8"/><stop offset=".83" stop-color="#77756f"/><stop offset="1" stop-color="#f5f3ec"/>
+ </linearGradient>
+ <linearGradient id="tip" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f1eee5"/><stop offset=".45" stop-color="#5b5954"/><stop offset="1" stop-color="#050505"/></linearGradient>
+ <filter id="shadow" x="-20%" y="-80%" width="140%" height="260%"><feGaussianBlur stdDeviation="5"/></filter>
+</defs>
+<ellipse cx="213" cy="151" rx="168" ry="13" fill="#000" opacity=".78" filter="url(#shadow)" transform="rotate(-24 213 151)"/>
 <g transform="rotate(-24 210 110)">
-<path d="M45 104 L72 87 L321 87 Q340 87 340 103 L340 117 Q340 132 321 132 L72 132 Z" fill="#111" stroke="#aaa79f" stroke-width="2"/>
-<path d="M74 91 L320 91 Q335 91 335 104 L335 116 Q335 128 320 128 L74 128 Z" fill="url(#metal)" stroke="#efede6" stroke-width="1.4"/>
-<path d="M88 95 L320 95 Q330 95 330 104 L330 108 L88 108 Z" fill="#fff" opacity=".16"/>
-<path d="M71 87 L48 103 L71 132 Z" fill="#d8d5cd" stroke="#f6f4ed" stroke-width="1.4"/>
-<path d="M48 103 L70 110 L71 132 Z" fill="#151515"/>
-<path d="M321 87 L348 95 L365 109 L348 125 L321 132 Q338 110 321 87Z" fill="#292929" stroke="#b8b5ad" stroke-width="1.5"/>
-<path d="M348 95 L365 109 L348 125 L342 119 L354 109 L342 101 Z" fill="#d8d5cd"/>
-<path d="M92 91 L92 128 M98 91 L98 128 M301 91 L301 128 M307 91 L307 128" stroke="#fff" opacity=".36" stroke-width="1.2"/>
-<path d="M115 91 L115 128 M121 91 L121 128 M285 91 L285 128" stroke="#111" opacity=".5"/>
-<path d="M72 89 L319 89" stroke="#fff" stroke-width="1" opacity=".65"/>
+ <path d="M302 78 Q315 76 322 84 L338 105 L322 126 Q315 133 302 130Z" fill="#111" stroke="#ccc9c0" stroke-width="2"/>
+ <path d="M310 82 Q321 82 328 105 Q321 128 310 126" fill="url(#tip)" stroke="#f8f6ee" stroke-width="1"/>
+ <path d="M78 86 L306 86 Q315 86 315 96 L315 113 Q315 124 306 124 L78 124 L57 105Z" fill="#080808" stroke="#aaa79f" stroke-width="2.6" stroke-linejoin="round"/>
+ <path d="M76 88 L304 88 Q310 88 310 97 L310 112 Q310 121 304 121 L76 121 L60 105Z" fill="url(#barrel)" stroke="#efede7" stroke-width="1.5"/>
+ <path d="M77 92 L300 92 Q305 92 305 98 L305 101 L77 101Z" fill="#fff" opacity=".2"/>
+ <path d="M85 90L85 120 M91 90L91 120 M95 90L95 120" stroke="#fff" stroke-width="1.2" opacity=".68"/>
+ <path d="M111 90L111 120 M116 90L116 120 M278 90L278 120" stroke="#111" stroke-width="1.5" opacity=".55"/>
+ <path d="M78 86 L57 105 L78 124 L65 116 L40 108 Q33 105 40 101 L65 94Z" fill="url(#tip)" stroke="#efede7" stroke-width="1.6" stroke-linejoin="round"/>
+ <path d="M41 105L66 105 M53 101L53 109" stroke="#080808" stroke-width="1.4"/>
+ <path d="M142 87 L153 76 Q158 72 163 78 L171 88" stroke="#f4f2eb" stroke-width="4" stroke-linecap="round"/>
+ <path d="M151 80L160 86" stroke="#55534e" stroke-width="2" stroke-linecap="round"/>
+ <path d="M293 86L293 124 M299 86L299 124 M303 87L303 123" stroke="#111" stroke-width="1.6"/>
+ <path d="M293 87L293 122" stroke="#fff" stroke-width="1" opacity=".75"/>
 </g>
-<g fill="#eeeae1" opacity=".9"><path d="M82 37 l2 7 7 2 -7 2 -2 7 -2 -7 -7 -2 7 -2z"/><circle cx="338" cy="53" r="2"/><circle cx="103" cy="174" r="1.5"/></g>
-<path d="M62 64 C92 26 142 29 171 45" stroke="#9a978f" stroke-width="1" stroke-dasharray="2 6" opacity=".65"/>
+<path d="M45 61C67 35 92 31 124 41" stroke="#a8a59e" stroke-width="1.2" stroke-dasharray="2 7" opacity=".66"/>
+<path d="M338 155l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#e9e6de" opacity=".65"/>
 </svg>
