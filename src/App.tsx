@@ -202,6 +202,7 @@ function extractVerses(payload: unknown): Verse[] {
 
 function App() {
   const [page, setPage] = useState<Page>('inicio')
+  const [webglAvailable, setWebglAvailable] = useState<boolean | null>(null)
   const [focusedObject, setFocusedObject] = useState<FocusedObject | null>(null)
   const [launchingSection, setLaunchingSection] = useState<string | null>(null)
   const launchTimer = useRef<number | null>(null)
@@ -323,6 +324,21 @@ function App() {
     '--shadow-opacity': appearance.shadows === 'none' ? '0' : appearance.shadows === 'deep' ? '.34' : '.16',
     '--bible-size': `${appearance.readingSize}px`,
   } as CSSProperties
+
+  useEffect(() => {
+    let context: WebGLRenderingContext | WebGL2RenderingContext | null = null
+    try {
+      const canvas = document.createElement('canvas')
+      context = canvas.getContext('webgl2') || canvas.getContext('webgl')
+    } catch {
+      context = null
+    }
+    setWebglAvailable(Boolean(context))
+    if (context) {
+      const extension = context.getExtension('WEBGL_lose_context')
+      extension?.loseContext()
+    }
+  }, [])
 
   useEffect(() => {
     if (!focusedObject) return
@@ -759,7 +775,9 @@ function App() {
             <span className="story-section-index">02</span>
             <span className="story-object pen-object-art" aria-hidden="true">
               <span className="pen-model3d pen-model3d-real" aria-label="Modelo 3D interativo de caneta-tinteiro">
-                <iframe className="pen-model-preview" src={penModelViewerUrl} title="Prévia 3D de caneta-tinteiro" loading="lazy" allow="fullscreen" />
+                {webglAvailable === true
+                  ? <iframe className="pen-model-preview" src={penModelViewerUrl} title="Prévia 3D de caneta-tinteiro" loading="lazy" allow="fullscreen" />
+                  : <div className="webgl-unavailable-home"><span>3D</span><small>{webglAvailable === false ? 'WebGL indisponível neste navegador' : 'A verificar suporte 3D…'}</small></div>}
               </span>
             </span>
             <span className="story-object-copy"><span className="story-kicker">UM ESPAÇO PARA TI</span><strong>Coloca os teus<br/>pensamentos no papel.</strong><p>Orações, ideias, planos e tudo o que não queres esquecer.</p><span className="story-action-hint">TOCA PARA ESCREVER <b>↗</b></span></span>
@@ -994,7 +1012,14 @@ function App() {
         <section className={`object-zoom-dialog zoomed-${focusedObject}`} role="dialog" aria-modal="true" aria-labelledby="object-zoom-title" onClick={event => event.stopPropagation()}>
           <button className="object-zoom-close" onClick={() => setFocusedObject(null)} aria-label="Voltar ao quarto">×</button>
           <div className="object-zoom-scene">
-            {focusedObject === 'notes' && <iframe className="pen-model-viewer" src={penModelViewerUrl} title="Modelo 3D interativo de caneta-tinteiro" allow="fullscreen" allowFullScreen />}
+            {focusedObject === 'notes' && (webglAvailable === true
+              ? <iframe className="pen-model-viewer" src={penModelViewerUrl} title="Modelo 3D interativo de caneta-tinteiro" allow="fullscreen" allowFullScreen />
+              : <div className="webgl-unavailable-detail">
+                  <div className="webgl-fallback-mark" aria-hidden="true">3D</div>
+                  <h3>{webglAvailable === false ? 'O navegador não disponibilizou o WebGL.' : 'A verificar o suporte 3D…'}</h3>
+                  <p>O modelo original precisa de WebGL. Ativa a aceleração gráfica nas definições do navegador e reinicia-o; esta área não vai mostrar um modelo falso no lugar do original.</p>
+                  <a href="https://get.webgl.org/" target="_blank" rel="noreferrer">Testar WebGL neste navegador ↗</a>
+                </div>)}
             {focusedObject === 'bible' && <span className="zoom-bible-model" aria-hidden="true"><span className="home-bible-pages"/><span className="home-bible-back"/><span className="home-bible-spine"/><span className="home-bible-cover"><span>HOLY BIBLE</span></span></span>}
             {focusedObject === 'goals' && <span className="zoom-star-model" aria-hidden="true"><img src="/pixel-star.png" alt=""/><i/><i/><i/></span>}
             {focusedObject === 'tracker' && <span className="zoom-tracker-model" aria-hidden="true"><span/><img src="/habit-tracker.svg" alt=""/></span>}
@@ -1007,7 +1032,7 @@ function App() {
               <button className="object-zoom-enter" onClick={enterFocusedObject}>{({ bible: 'Entrar na Bíblia', notes: 'Abrir Anotações', goals: 'Abrir Hábitos', tracker: 'Abrir tracker' } as Record<FocusedObject,string>)[focusedObject]} <span>↗</span></button>
               <button className="object-zoom-back" onClick={() => setFocusedObject(null)}>Voltar ao quarto</button>
             </div>
-            {focusedObject === 'notes' && <small className="object-model-credit">Modelo 3D de caneta-tinteiro: Innerscene · CC0</small>}
+            {focusedObject === 'notes' && webglAvailable === true && <small className="object-model-credit">Modelo 3D de caneta-tinteiro: Innerscene · CC0</small>}
           </div>
         </section>
       </div>}
