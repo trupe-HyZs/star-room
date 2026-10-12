@@ -671,66 +671,65 @@ function App() {
 
   return (
     <main className={`site-shell atmosphere-${appearance.atmosphere} elements-${appearance.elements} motion-${appearance.motion} panels-${appearance.panelShape} shadows-${appearance.shadows} habits-${appearance.habitLayout} paper-${appearance.paperTexture}`} style={rootStyle}>
-      <header className="topbar">
-        <button className="brand-lockup" onClick={() => setPage('inicio')} aria-label="Ir para o Início">
+      <header className={`topbar ${page === 'inicio' ? 'topbar-home' : 'topbar-inner'}`}>
+        <button className="brand-lockup" onClick={() => setPage('inicio')} aria-label="Voltar ao quarto">
           <img src="/star-logo.png" className="brand-logo" alt="Logo STAR" />
           <span className="brand-wordmark"><span className="brand-room">room</span></span>
         </button>
-        <nav className="nav-pills" aria-label="Navegação principal">
-          {navItems.map(item => <button key={item.id} className={`nav-pill ${page === item.id ? 'active' : ''}`} onClick={() => setPage(item.id)}>{item.label}</button>)}
-        </nav>
-        <div className="topbar-status"><span className={`status-dot ${apiReady ? 'is-live' : ''}`} />{apiReady ? 'NVI conectada' : 'espaço pessoal'}</div>
+        {page !== 'inicio' && <div className="inner-nav">
+          <button className="back-to-room" onClick={() => setPage('inicio')}>← Voltar ao quarto</button>
+          <span className="inner-page-name">{({ biblia: 'A Palavra', anotacoes: 'Pensamentos', habitos: 'Metas e hábitos', ajustes: 'Meu espaço' } as Record<string,string>)[page]}</span>
+          <div className="topbar-status"><span className={`status-dot ${apiReady ? 'is-live' : ''}`} />{apiReady ? 'NVI conectada' : 'espaço pessoal'}</div>
+        </div>}
+        {page === 'inicio' && <span className="home-top-note">UM ESPAÇO TEU · DESDE O PRIMEIRO PENSAMENTO</span>}
       </header>
 
       <div className={`app-content page-${page}`} key={page}>
-        {page === 'inicio' && <section className="home-view home-canva page-enter">
-          <section className="home-verse-hero">
-            <div className="home-verse-copy">
-              <div className="home-verse-reference"><span className="reference-pip" /> SALMOS 1:3 <span className="reference-divider" /> {apiReady ? 'NVI' : 'PRÉVIA'}</div>
-              <h1>Versículo<br /><em>do dia</em></h1>
-              <p className="home-verse-text">{dailyVerseLoading ? 'Carregando a Palavra…' : dailyVerse || fallbackDailyVerse}</p>
-              {apiStatusLoaded && !apiReady && <p className="home-preview-label">Prévia local · conecta a API para carregar o texto completo da NVI.</p>}
-              <div className="home-hero-actions">
-                <button className="home-primary-action" onClick={() => openBibleAt(19, 1)}>Ler capítulo <span>↗</span></button>
-                <button className="home-secondary-action" onClick={() => createNote({ title: 'Salmos 1:3', category: 'Devocional', content: `<blockquote>${escapeHtml(`Salmos 1:3 — ${dailyVerse || fallbackDailyVerse}`)}</blockquote><p><br></p>` })}>Guardar reflexão <span>＋</span></button>
-              </div>
+        {page === 'inicio' && <section className="home-view home-canva home-story page-enter">
+          <section className="story-verse" aria-label="Versículo do dia">
+            <div className="story-verse-copy">
+              <span className="story-index">00 / UM MOMENTO DE PAZ</span>
+              <p className="story-verse-label">VERSÍCULO DO DIA</p>
+              <h1>Encontra um<br/><em>momento de paz.</em></h1>
+              <blockquote>{dailyVerseLoading ? 'A preparar a Palavra…' : dailyVerse || fallbackDailyVerse}</blockquote>
+              <span className="story-reference">SALMOS 1:3 <i/> {apiReady ? 'NVI' : 'PRÉVIA'}</span>
+              <button className="story-text-link" onClick={() => openBibleAt(19,1)}>Ler o capítulo <span>↗</span></button>
             </div>
-            <div className="home-prayer-art scroll-reveal" aria-label="Mãos unidas em oração, ilustração de gravura preta e branca" role="img">
-              <span className="prayer-art-caption">UM MOMENTO DE PAZ</span>
-              <img src="/praying-hands.svg" alt="Mãos em oração, desenhadas como gravura de tinta preta e branca" />
-              <span className="prayer-art-mark" aria-hidden="true">✳</span>
+            <div className="story-hands" aria-hidden="true">
+              <span className="orbit orbit-one"/><span className="orbit orbit-two"/>
+              <img src="/praying-hands.svg" alt=""/>
+              <span className="story-vertical-note">RESPIRA · ORA · CONFIA</span>
             </div>
+            <span className="story-scroll-cue"><span/> DESLIZA PARA DESCOBRIR</span>
           </section>
 
-          <nav className="home-shortcuts scroll-reveal" aria-label="Atalhos do Star Room">
-            <button className="home-shortcut home-shortcut-bible" onClick={() => setPage('biblia')}><span className="shortcut-star-stamp"><img src="/bible-sketch.png" alt="" /></span><span><strong>Bíblia</strong><small>Leitura e grifamento</small></span><b aria-hidden="true">↗</b></button>
-            <button className="home-shortcut home-shortcut-notes" onClick={() => setPage('anotacoes')}><span className="shortcut-star-stamp"><img src="/engraved-books.svg" alt="" /></span><span><strong>Anotações</strong><small>Escreve com liberdade</small></span><b aria-hidden="true">↗</b></button>
-            <button className="home-shortcut home-shortcut-habits" onClick={() => setPage('habitos')}><span className="shortcut-star-stamp"><img src="/habit-tracker.svg" alt="" /></span><span><strong>Hábitos</strong><small>Rotina em registo mensal</small></span><b aria-hidden="true">↗</b></button>
-          </nav>
-          <section className="room-inventory scroll-reveal" aria-label="O teu quarto em andamento">
-            <div className="room-inventory-heading"><span className="room-eyebrow">O TEU QUARTO</span><h2>As coisas que estás a cultivar.</h2></div>
-            <div className="room-inventory-grid">
-              <article className="room-note-panel journal-surface">
-                <div className="room-panel-label">ÚLTIMA ANOTAÇÃO</div>
-                <h3>{notes.filter(note => note.title.trim()).sort((a,b) => b.updatedAt-a.updatedAt)[0]?.title || 'Uma página em branco'}</h3>
-                <p>{(notes.filter(note => note.title.trim()).sort((a,b) => b.updatedAt-a.updatedAt)[0]?.content || 'Guarda uma ideia, uma oração ou algo que queiras lembrar.').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 130)}</p>
-                <button className="room-text-action" onClick={() => setPage('anotacoes')}>Voltar às notas <span>↗</span></button>
-              </article>
-              <article className="room-reading-panel journal-surface">
-                <div className="room-panel-label">CONTINUA A LEITURA</div>
-                <div className="room-reading-reference"><img src="/star-logo.png" alt="" /><span>{currentBook.name} {chapter}</span></div>
-                <p>A tua última página fica guardada aqui.</p>
-                <button className="room-text-action" onClick={() => setPage('biblia')}>Abrir a Bíblia <span>↗</span></button>
-              </article>
-              <article className="room-habits-panel journal-surface">
-                <div className="room-panel-label">PEQUENOS PASSOS</div>
-                <div className="room-habit-progress"><strong>{doneHabits}<span> / {habits.length}</span></strong><small>hábitos de hoje</small></div>
-                <div className="room-progress-track"><span style={{width:`${completion}%`}} /></div>
-                <button className="room-text-action" onClick={() => setPage('habitos')}>Ver o tracker <span>↗</span></button>
-              </article>
-            </div>
-          </section>
-          <footer className="home-footer"><span>STAR ROOM</span><span>{appearance.homeTagline}</span></footer>
+          <button className="story-object-section story-bible scroll-reveal" onClick={() => setPage('biblia')} aria-label="Entrar na Bíblia">
+            <span className="story-section-index">01</span>
+            <span className="story-object bible-object-art" aria-hidden="true"><span className="bible-spine"/><img src="/bible-sketch.png" alt=""/></span>
+            <span className="story-object-copy"><span className="story-kicker">A PALAVRA DE DEUS</span><strong>O livro sagrado.</strong><p>Um lugar para ler, refletir e guardar aquilo que fala contigo.</p><span className="story-action-hint">TOCA NO LIVRO PARA ABRIR <b>↗</b></span></span>
+            <span className="story-margin-note">Ler.<br/>Meditar.<br/>Viver.</span>
+          </button>
+
+          <button className="story-object-section story-notes scroll-reveal" onClick={() => setPage('anotacoes')} aria-label="Entrar nas anotações">
+            <span className="story-section-index">02</span>
+            <span className="story-object pen-object-art" aria-hidden="true"><img src="/ink-pen.svg" alt=""/></span>
+            <span className="story-object-copy"><span className="story-kicker">UM ESPAÇO PARA TI</span><strong>Coloca os teus<br/>pensamentos no papel.</strong><p>Orações, ideias, planos e tudo o que não queres esquecer.</p><span className="story-action-hint">TOCA PARA ESCREVER <b>↗</b></span></span>
+            <span className="story-margin-note">Escreve.<br/>Solta.<br/>Guarda.</span>
+          </button>
+
+          <button className="story-object-section story-goals scroll-reveal" onClick={() => setPage('habitos')} aria-label="Entrar nos hábitos e metas">
+            <span className="story-section-index">03</span>
+            <span className="story-object star-object-art" aria-hidden="true"><span className="star-aura"/><img src="/pixel-star.png" alt=""/></span>
+            <span className="story-object-copy"><span className="story-kicker">PEQUENOS PASSOS, GRANDES MUDANÇAS</span><strong>E as tuas metas<br/>e objetivos?</strong><p>Vamos chegar lá? Um dia de cada vez, ao teu ritmo.</p><span className="story-action-hint">TOCA NA ESTRELA <b>↗</b></span></span>
+            <span className="story-margin-note">Sonha.<br/>Planeia.<br/>Constrói.</span>
+          </button>
+
+          <button className="story-object-section story-tracker scroll-reveal" onClick={() => setPage('habitos')} aria-label="Abrir tracker mensal e lembretes">
+            <span className="story-section-index">04</span>
+            <span className="story-object tracker-object-art" aria-hidden="true"><img src="/habit-tracker.svg" alt=""/></span>
+            <span className="story-object-copy"><span className="story-kicker">O TEU CADERNO DE ROTINA</span><strong>O que fazes hoje<br/>constrói o amanhã.</strong><p>Hábitos, rotina e lembretes num tracker mensal que vais preenchendo.</p><span className="story-action-hint">ABRIR O TEU TRACKER <b>↗</b></span></span>
+          </button>
+          <footer className="story-footer"><img src="/star-logo.png" alt="STAR"/><span>O TEU QUARTO DIGITAL</span><span>FEITO PARA SER TEU.</span><button onClick={() => setPage('ajustes')}>PERSONALIZAR ↗</button></footer>
         </section>}
 
         {page === 'biblia' && !bibleBookOpen && <section className={`bible-book-entry page-enter ${bibleOpening ? 'book-opening' : ''}`} aria-label="Capa da Bíblia">
