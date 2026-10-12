@@ -1548,3 +1548,347 @@ button { transition-timing-function: cubic-bezier(.2,.7,.25,1); }
   .site-shell .home-verse-hero, .site-shell .home-star-art, .site-shell .home-pixel-star, .site-shell .bible-opened .bible-layout, .site-shell .bible-opened .chapter-notes-panel, .site-shell .bible-opened .bible-reader-canva { animation: none !important; transition: none !important; }
   .site-shell .bible-book-object, .site-shell .bible-book-cover { transition: none !important; }
 }
+
+
+/* STAR ROOM / INK-ETCHED EDITION
+   Motion uses transform + opacity, and is disabled for reduced-motion preferences. */
+:root {
+  --cyan: #e4e2dc;
+  --blue: #bcbab4;
+  --violet: #85837f;
+  --line: rgba(255,255,255,.18);
+  --line-bright: rgba(255,255,255,.42);
+  --ink: #f5f3ed;
+  --muted: #aaa8a2;
+  --dim: #777570;
+}
+.site-shell {
+  background: var(--space) !important;
+  color: var(--ink);
+}
+.site-shell::before {
+  background-image:
+    radial-gradient(ellipse at 68% 3%, rgba(255,255,255,.045), transparent 46%),
+    repeating-linear-gradient(128deg, rgba(255,255,255,.018) 0 1px, transparent 1px 8px),
+    linear-gradient(180deg, #080808 0%, #050505 60%, #080808 100%);
+  background-position: center;
+  background-size: auto;
+}
+.site-shell::after {
+  opacity: .07;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.12) 0 1px, transparent 1px 5px),
+    radial-gradient(rgba(255,255,255,.42) .55px, transparent .75px);
+  background-size: auto, 11px 11px;
+  mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+}
+.topbar {
+  border-bottom: 1px solid rgba(255,255,255,.12);
+  background: rgba(8,8,8,.82);
+  backdrop-filter: blur(14px) saturate(.3);
+}
+.brand-room {
+  color: #f0eee8 !important;
+  font-family: 'Pixelify Sans', 'DM Mono', monospace !important;
+  letter-spacing: .055em;
+  text-shadow: 1px 1px 0 #555, 2px 2px 0 rgba(0,0,0,.8);
+}
+.brand-logo { filter: grayscale(1) contrast(1.4); }
+.nav-pill {
+  color: #c9c7c1;
+  background: transparent;
+  border-color: transparent;
+}
+.nav-pill:hover,
+.nav-pill.active {
+  color: #fff;
+  border-color: rgba(255,255,255,.45);
+  background: rgba(255,255,255,.055);
+  box-shadow: inset 0 1px rgba(255,255,255,.08);
+}
+.topbar-status { color: #9c9a94; }
+.status-dot { background: #777; box-shadow: none; }
+.status-dot.is-live { background: #f4f2eb; box-shadow: 0 0 0 3px rgba(255,255,255,.1); }
+
+.home-view.home-canva {
+  padding-top: clamp(16px, 3vh, 34px);
+  gap: clamp(36px, 6vh, 66px);
+}
+.home-verse-hero {
+  grid-template-columns: minmax(0, 1.02fr) minmax(260px, .9fr);
+  align-items: center;
+  min-height: clamp(380px, 52vh, 500px);
+  overflow: visible;
+  gap: clamp(24px, 5vw, 72px);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.home-verse-hero::before { display: none; }
+.home-verse-copy { padding: clamp(24px, 4vw, 54px) 0; }
+.home-verse-reference {
+  color: #d7d5cf !important;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: .16em;
+}
+.reference-pip {
+  background: #f1efe8;
+  box-shadow: 0 0 0 3px rgba(255,255,255,.09);
+}
+.reference-divider { background: rgba(255,255,255,.3); }
+.home-verse-copy h1 {
+  color: #faf9f5;
+  font-family: var(--heading-font) !important;
+  font-size: clamp(36px, 4.4vw, 60px);
+  letter-spacing: .015em;
+  line-height: 1.13;
+  text-shadow: 2px 2px 0 rgba(255,255,255,.055);
+}
+.home-verse-copy h1 em { color: #c6c4be; }
+.home-verse-text {
+  color: #e1dfd9;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: clamp(17px, 1.42vw, 20px);
+  line-height: 1.85;
+}
+.home-preview-label { color: #96938d; }
+.home-primary-action {
+  color: #090909;
+  background: linear-gradient(155deg, #f4f2ed, #d2d0ca);
+  border: 1px solid #fff;
+  border-radius: 3px;
+  box-shadow: inset 0 1px rgba(255,255,255,.9), 0 5px 14px rgba(0,0,0,.3);
+}
+.home-primary-action span { color: #161616; }
+.home-secondary-action { color: #cbc9c2; border-bottom: 1px solid rgba(255,255,255,.28); }
+.home-secondary-action span { color: #efede7; }
+
+.home-prayer-art {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  align-self: stretch;
+  min-height: 320px;
+  max-height: 495px;
+  overflow: visible;
+  isolation: isolate;
+  padding: 8px 0;
+  transform: rotate(1.5deg);
+}
+.home-prayer-art::before {
+  content: '';
+  position: absolute;
+  inset: 12% 7% 8%;
+  z-index: -1;
+  background: repeating-linear-gradient(132deg, rgba(255,255,255,.04) 0 1px, transparent 1px 9px);
+  mask-image: radial-gradient(ellipse at center, black, transparent 72%);
+  pointer-events: none;
+}
+.home-prayer-art img {
+  display: block;
+  width: min(100%, 455px);
+  max-height: 470px;
+  object-fit: contain;
+  filter: grayscale(1) contrast(1.12) drop-shadow(0 20px 18px rgba(0,0,0,.48));
+  transform: rotate(-3deg);
+  animation: prayer-art-float 7.5s ease-in-out infinite;
+  transform-origin: 52% 62%;
+}
+.prayer-art-caption {
+  position: absolute;
+  z-index: 2;
+  top: 7%;
+  right: 1%;
+  color: rgba(245,243,237,.66);
+  font: 9px 'DM Mono', monospace;
+  letter-spacing: .19em;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+@keyframes prayer-art-float {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-9px) rotate(-1.5deg); }
+}
+.home-shortcuts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: clamp(12px, 3vw, 34px);
+  border: 0;
+  align-items: start;
+  margin: 0 0 8px;
+}
+.home-shortcut {
+  display: grid;
+  grid-template-columns: 88px minmax(0,1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 105px;
+  padding: 11px 4px 18px;
+  border: 0 !important;
+  border-radius: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-align: left;
+  transition: transform .25s ease, opacity .25s ease;
+}
+.home-shortcut:nth-child(1) { transform: rotate(-1deg); }
+.home-shortcut:nth-child(2) { transform: rotate(.8deg) translateY(10px); }
+.home-shortcut:nth-child(3) { transform: rotate(-.5deg) translateY(3px); }
+.home-shortcut:hover { transform: translateY(-5px) rotate(0deg); }
+.shortcut-star-stamp {
+  width: 86px;
+  height: 86px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 86px;
+  background: transparent;
+}
+.shortcut-star-stamp img {
+  width: 100%;
+  height: 100%;
+  max-height: 86px;
+  object-fit: contain;
+  filter: grayscale(1) contrast(1.22);
+  transition: transform .32s cubic-bezier(.2,.8,.2,1), filter .25s ease;
+}
+.home-shortcut:hover .shortcut-star-stamp img { transform: rotate(-3deg) translateY(-4px) scale(1.045); }
+.home-shortcut-notes .shortcut-star-stamp img { width: 108%; height: 108%; }
+.home-shortcut-bible .shortcut-star-stamp img { width: 92%; height: 92%; }
+.home-shortcut-habits .shortcut-star-stamp img { width: 85%; height: 85%; }
+.home-shortcut strong {
+  color: #f3f1eb;
+  font-family: var(--heading-font);
+  font-size: clamp(14px, 1.2vw, 17px);
+  font-weight: 500;
+}
+.home-shortcut small { color: #a19e97; font-size: 10px; line-height: 1.6; }
+.home-shortcut > b { color: #d2d0ca; font-size: 15px; font-weight: 400; }
+.home-shortcut:hover > b { color: white; }
+.home-shortcut-habits .shortcut-star-stamp { background: transparent; }
+
+.room-inventory {
+  padding: 25px 0 12px;
+  border-top: 1px solid rgba(255,255,255,.14);
+}
+.room-inventory-heading { margin-bottom: 12px; align-items: baseline; }
+.room-eyebrow { color: #aaa8a2; }
+.room-inventory-heading h2 {
+  color: #e7e5df;
+  font-family: var(--heading-font);
+  font-size: clamp(17px, 2vw, 24px);
+  font-weight: 500;
+}
+.room-inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: clamp(18px, 3vw, 40px);
+}
+.room-inventory-grid > article {
+  min-width: 0;
+  padding: 20px 8px 16px;
+  border: 0 !important;
+  border-top: 1px dashed rgba(255,255,255,.2) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  transform: none !important;
+}
+.room-panel-label {
+  color: #aaa8a2;
+  font: 9px 'DM Mono', monospace;
+  letter-spacing: .14em;
+}
+.room-inventory-grid h3 { color: #f0eee8; font-family: var(--heading-font); }
+.room-inventory-grid p { color: #b6b3ad; }
+.room-text-action { color: #e7e5df; border-bottom: 1px solid rgba(255,255,255,.28); }
+.room-text-action span { color: #efede7; }
+
+.home-footer {
+  border-top: 1px solid rgba(255,255,255,.13);
+  color: #85837d;
+}
+.home-footer span:first-child { color: #c7c5bf; letter-spacing: .13em; }
+.site-shell.paper-dots { --notebook-paper-pattern: radial-gradient(rgba(34,34,34,.18) .65px, transparent .8px); }
+.site-shell.paper-lines { --notebook-paper-pattern: repeating-linear-gradient(to bottom, transparent 0, transparent 31px, rgba(34,34,34,.13) 32px, transparent 33px); }
+.site-shell.paper-plain { --notebook-paper-pattern: none; }
+
+/* The leather cover stays restrained; the only cover lettering is elevated above centre. */
+.book-cover-heading {
+  top: 43% !important;
+  color: #c6a15b;
+  font-family: Georgia, 'Times New Roman', serif !important;
+  letter-spacing: .11em;
+}
+.bible-book-object:not(.is-opening) {
+  transform: rotateY(calc(-20deg + var(--book-tilt-x, 0deg))) rotateX(calc(4deg + var(--book-tilt-y, 0deg))) rotateZ(-1deg);
+  cursor: grab;
+  touch-action: pan-y;
+}
+.bible-book-object:not(.is-opening):hover {
+  transform: rotateY(calc(-20deg + var(--book-tilt-x, 0deg))) rotateX(calc(4deg + var(--book-tilt-y, 0deg))) rotateZ(-1deg) translateY(-4px);
+}
+.bible-book-object:active { cursor: grabbing; }
+.bible-book-object:focus-visible { outline: 2px solid #e8e6e1; outline-offset: 9px; }
+.book-touch-instruction { color: #d1cfc9 !important; max-width: 360px; }
+.book-touch-hint {
+  margin: 14px 0 3px;
+  color: #aaa8a2;
+  font: 10px 'DM Mono', monospace;
+  letter-spacing: .09em;
+}
+.book-touch-hint span { font-size: 16px; color: #f2f0ea; }
+.open-bible-button { display: none !important; }
+
+/* Short, tactile feedback and restrained reveal. */
+.page-enter { animation: ink-page-enter .42s cubic-bezier(.2,.75,.2,1) both; }
+.home-prayer-art.scroll-reveal { opacity: 1; }
+@keyframes ink-page-enter {
+  from { opacity: 0; transform: translateY(7px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.home-shortcut,
+.home-primary-action,
+.home-secondary-action,
+.room-text-action,
+.nav-pill,
+.chapter-note-add,
+.verse-highlight-option,
+.note-format-tools button {
+  transition-duration: .2s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-prayer-art img,
+  .page-enter { animation: none !important; }
+  .home-shortcut, .bible-book-object, .bible-book-cover { transition: none !important; }
+}
+
+@media (max-width: 800px) {
+  .home-verse-hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    gap: 0;
+  }
+  .home-verse-copy { padding: 25px 0 4px; }
+  .home-prayer-art {
+    min-height: 245px;
+    max-height: 300px;
+    margin: 0 auto;
+    width: min(100%, 360px);
+  }
+  .home-prayer-art img { max-height: 295px; width: min(100%, 320px); }
+  .prayer-art-caption { top: 10%; right: 0; font-size: 8px; }
+  .home-shortcuts { grid-template-columns: 1fr; gap: 4px; }
+  .home-shortcut {
+    grid-template-columns: 72px minmax(0,1fr) auto;
+    min-height: 80px;
+    padding: 7px 4px 12px;
+  }
+  .shortcut-star-stamp { width: 70px; height: 70px; flex-basis: 70px; }
+  .shortcut-star-stamp img { max-height: 70px; }
+  .home-shortcut:nth-child(n) { transform: none; }
+  .room-inventory-grid { grid-template-columns: 1fr; gap: 0; }
+  .room-inventory-grid > article { padding: 16px 4px; }
+}
