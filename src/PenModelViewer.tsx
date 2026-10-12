@@ -138,8 +138,9 @@ export function PenModelViewer({
         if (!Number.isFinite(longestSide) || longestSide <= 0) {
           throw new Error('O modelo 3D não contém uma geometria válida.')
         }
-        model.position.sub(center)
-        model.scale.multiplyScalar(2.05 / longestSide)
+        const fitScale = 2.05 / longestSide
+        model.position.sub(center.clone().multiplyScalar(fitScale))
+        model.scale.multiplyScalar(fitScale)
         pivot.add(model)
         pivot.rotation.set(0.72, -0.12, -0.34)
         modelRootRef.current = pivot
