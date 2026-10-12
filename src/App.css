@@ -2029,3 +2029,170 @@ button { transition-timing-function: cubic-bezier(.2,.7,.25,1); }
     radial-gradient(ellipse at 36% 24%, rgba(255,255,255,.02), transparent 48%),
     linear-gradient(140deg, #160d08 0%, #090605 42%, #020202 100%) !important;
 }
+
+
+/* HOME OBJECTS — actual layered CSS volumes, not flat shortcut icons. */
+.story-object-section { perspective: 1200px; transform-style: preserve-3d; }
+.story-object-section > * { transform-style: preserve-3d; }
+.story-object { overflow: visible; }
+.story-bible .bible-object-art { overflow: visible; }
+.home-bible-model {
+  position: relative;
+  display: block;
+  width: clamp(190px, 23vw, 315px);
+  aspect-ratio: .69;
+  transform-style: preserve-3d;
+  transform: rotateY(-27deg) rotateX(8deg) rotateZ(-7deg);
+  animation: bible-model-drift 7.5s ease-in-out infinite;
+  transition: transform .65s cubic-bezier(.2,.8,.2,1), filter .5s ease;
+  filter: drop-shadow(18px 26px 16px rgba(0,0,0,.72));
+}
+.home-bible-pages {
+  position:absolute; inset:3% -5% 1% 7%;
+  border-radius: 5px 10px 10px 5px;
+  background: repeating-linear-gradient(to bottom,#dedbd3 0,#dedbd3 2px,#a5a19a 3px,#f2f0e9 4px);
+  border:1px solid #827e76;
+  transform: translateZ(-14px) translateX(12px);
+  box-shadow: 3px 2px 0 #55514b, 7px 6px 0 #292725;
+}
+.home-bible-back {
+  position:absolute; inset:0;
+  border-radius:7px 11px 11px 7px;
+  background:linear-gradient(110deg,#1c1a18,#080808 55%,#050505);
+  border:1px solid #3d3a35;
+  transform:translateZ(-5px) translateX(4px);
+  box-shadow:inset -6px 0 10px rgba(255,255,255,.035);
+}
+.home-bible-cover {
+  position:absolute; inset:0; display:grid; place-items:center; overflow:hidden;
+  transform:translateZ(8px); backface-visibility:hidden;
+  border-radius:7px 11px 11px 7px; border:1px solid #443b30;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.86) 0%,rgba(255,255,255,.04) 3%,transparent 8%,transparent 92%,rgba(0,0,0,.4) 100%),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0 1px,transparent 1px 4px),
+    radial-gradient(ellipse at 36% 24%,rgba(255,255,255,.04),transparent 54%),
+    linear-gradient(142deg,#15120f 0%,#080706 55%,#020202 100%);
+  box-shadow:inset 9px 0 14px rgba(0,0,0,.65),inset 1px 1px rgba(255,255,255,.07),inset -7px 0 12px rgba(0,0,0,.4);
+}
+.home-bible-cover::before {
+  content:''; position:absolute; inset:10px; border:1px solid rgba(190,167,123,.18);
+  border-radius:3px 7px 7px 3px; pointer-events:none;
+}
+.home-bible-cover > span {
+  position:relative; margin-left:8%; color:#b89a65; text-align:center;
+  font:500 clamp(17px,1.7vw,23px)/1.1 Georgia,'Times New Roman',serif;
+  letter-spacing:.11em; white-space:nowrap;
+  text-shadow:0 1px rgba(255,234,181,.22),0 4px 5px #000;
+}
+.home-bible-spine {
+  position:absolute; top:0; bottom:0; left:-4px; width:24px; z-index:3;
+  border-radius:6px 0 0 6px;
+  background:linear-gradient(90deg,#020202 0%,#17120e 35%,#393027 54%,#090807 84%,#010101);
+  transform:translateZ(10px) rotateY(-8deg);
+  box-shadow:inset -2px 0 4px #000, inset 1px 0 rgba(255,255,255,.06);
+}
+.story-bible:hover .home-bible-model,
+.story-bible:focus-visible .home-bible-model {
+  animation-play-state: paused;
+  transform: perspective(850px) rotateY(-12deg) rotateX(3deg) rotateZ(-4deg) translateY(-12px) scale(1.07);
+  filter: drop-shadow(24px 34px 20px rgba(0,0,0,.8));
+}
+@keyframes bible-model-drift {
+  0%,100% { transform:rotateY(-27deg) rotateX(8deg) rotateZ(-7deg) translateY(0); }
+  50% { transform:rotateY(-20deg) rotateX(5deg) rotateZ(-5deg) translateY(-8px); }
+}
+.pen-object-art { perspective:1000px; overflow:visible; }
+.pen-model3d {
+  position:relative; display:block; width:min(100%,390px); aspect-ratio:420/220;
+  transform-style:preserve-3d; transform:rotateX(17deg) rotateY(-25deg) rotateZ(-8deg);
+  transition:transform .65s cubic-bezier(.2,.8,.2,1),filter .5s;
+  filter:drop-shadow(0 24px 13px rgba(0,0,0,.6));
+  animation:pen-model-drift 8s ease-in-out infinite;
+}
+.pen-model3d::before,.pen-model3d::after {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:url('/ink-pen.svg') center/contain no-repeat;
+}
+.pen-model3d::before { transform:translateZ(-10px) translate(7px,7px); filter:brightness(.12); opacity:.9; }
+.pen-model3d::after { transform:translateZ(-5px) translate(3px,3px); filter:brightness(.28); opacity:.8; }
+.pen-model3d img {
+  position:relative; z-index:2; display:block; width:100%; height:100%; object-fit:contain;
+  transform:translateZ(7px);
+  filter:grayscale(1) contrast(1.15) drop-shadow(1px 1px 0 #b7b4ad) drop-shadow(3px 3px 0 #222) drop-shadow(8px 13px 9px #000);
+}
+.story-notes:hover .pen-model3d,.story-notes:focus-visible .pen-model3d {
+  animation-play-state:paused; transform:rotateX(4deg) rotateY(-8deg) rotateZ(-2deg) translateY(-12px) scale(1.08);
+}
+@keyframes pen-model-drift {
+  0%,100% { transform:rotateX(17deg) rotateY(-25deg) rotateZ(-8deg) translateY(0); }
+  50% { transform:rotateX(11deg) rotateY(-18deg) rotateZ(-5deg) translateY(-7px); }
+}
+.star-object-art { perspective:900px; overflow:visible; }
+.star-model3d {
+  position:relative; display:block; width:min(72%,270px); aspect-ratio:1;
+  transform-style:preserve-3d; transform:rotateX(24deg) rotateY(-24deg) rotateZ(-8deg);
+  transition:transform .65s cubic-bezier(.2,.8,.2,1),filter .5s;
+  animation:star-model-drift 9s ease-in-out infinite;
+}
+.star-model3d img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; }
+.star-model3d .star-depth { filter:grayscale(1) brightness(.18) contrast(1.3); }
+.star-depth-4 { transform:translateZ(-18px) translate(7px,6px); }
+.star-depth-3 { transform:translateZ(-13px) translate(5px,4px); filter:grayscale(1) brightness(.27)!important; }
+.star-depth-2 { transform:translateZ(-8px) translate(3px,2px); filter:grayscale(1) brightness(.38)!important; }
+.star-depth-1 { transform:translateZ(-3px) translate(1px,1px); filter:grayscale(1) brightness(.56)!important; }
+.star-model3d .star-front { transform:translateZ(3px); filter:grayscale(1) brightness(1.55) contrast(1.14) drop-shadow(0 5px 0 #555) drop-shadow(0 12px 17px #000); }
+.star-aura { transform:translateZ(-20px); }
+.story-goals:hover .star-model3d,.story-goals:focus-visible .star-model3d {
+  animation-play-state:paused; transform:rotateX(10deg) rotateY(5deg) rotateZ(0deg) scale(1.15);
+}
+@keyframes star-model-drift {
+  0%,100% { transform:rotateX(24deg) rotateY(-24deg) rotateZ(-8deg) translateY(0); }
+  50% { transform:rotateX(14deg) rotateY(14deg) rotateZ(2deg) translateY(-9px); }
+}
+.tracker-object-art { perspective:900px; overflow:visible; }
+.tracker-notebook-model {
+  position:relative; display:grid; place-items:center; width:min(100%,420px);
+  transform-style:preserve-3d; transform:rotateX(13deg) rotateY(-15deg) rotateZ(-3deg);
+  transition:transform .65s cubic-bezier(.2,.8,.2,1),filter .5s;
+  filter:drop-shadow(12px 22px 13px #000);
+  animation:tracker-model-drift 8.5s ease-in-out infinite;
+}
+.tracker-notebook-model::before {
+  content:''; position:absolute; inset:4% -3% -2% 4%; z-index:-1;
+  background:linear-gradient(135deg,#aaa79f,#383733 55%,#111);
+  border:1px solid #77736b; transform:translateZ(-10px) translate(5px,6px);
+  box-shadow:4px 5px 0 #141414,8px 9px 12px #000;
+}
+.tracker-notebook-model img {
+  display:block; width:100%; max-height:250px; object-fit:contain;
+  transform:translateZ(4px); filter:grayscale(1) contrast(1.1);
+}
+.story-tracker:hover .tracker-notebook-model,.story-tracker:focus-visible .tracker-notebook-model {
+  animation-play-state:paused; transform:rotateX(5deg) rotateY(0deg) rotateZ(0deg) translateY(-9px) scale(1.04);
+}
+@keyframes tracker-model-drift {
+  0%,100% { transform:rotateX(13deg) rotateY(-15deg) rotateZ(-3deg) translateY(0); }
+  50% { transform:rotateX(8deg) rotateY(-8deg) rotateZ(-1deg) translateY(-7px); }
+}
+
+/* Selecting an object briefly zooms it before entering its tool. */
+.story-object-section.is-launching { z-index:20; pointer-events:none; border-color:rgba(255,255,255,.36); }
+.story-object-section.is-launching .story-object { z-index:30; filter:brightness(1.15); }
+.story-bible.is-launching .home-bible-model { animation:none; transform:rotateY(-8deg) rotateX(0) scale(1.26) translateZ(70px); }
+.story-notes.is-launching .pen-model3d { animation:none; transform:rotateX(0) rotateY(0) rotateZ(0) scale(1.42) translateZ(70px); }
+.story-goals.is-launching .star-model3d { animation:none; transform:rotateX(0) rotateY(0) rotateZ(0) scale(1.45) translateZ(70px); filter:brightness(1.85) drop-shadow(0 0 30px rgba(255,255,255,.35)); }
+.story-tracker.is-launching .tracker-notebook-model { animation:none; transform:rotateX(0) rotateY(0) scale(1.25) translateZ(70px); }
+.story-object-section.is-launching .story-object-copy,
+.story-object-section.is-launching .story-margin-note,
+.story-object-section.is-launching .story-section-index,
+.story-object-section.is-launching .story-action-hint { opacity:0; transition:opacity .15s; }
+@media(max-width:800px) {
+ .home-bible-model { width:min(74%,245px); }
+ .pen-model3d { width:min(130%,340px); }
+ .star-model3d { width:85%; }
+ .tracker-notebook-model { width:110%; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .home-bible-model,.pen-model3d,.star-model3d,.tracker-notebook-model { animation:none!important; }
+ .story-object-section.is-launching .story-object { transform:none!important; }
+}
