@@ -203,6 +203,8 @@ function App() {
   const [bibleBookOpen, setBibleBookOpen] = useState(false)
   const [bibleOpening, setBibleOpening] = useState(false)
   const [bookTilt, setBookTilt] = useState({ x: 0, y: 0 })
+  const bookPointerStart = useRef<{ x: number; y: number; dragged: boolean } | null>(null)
+  const bookDragRef = useRef(false)
   const bibleOpenTimer = useRef<number | null>(null)
   const thisMonthKey = localDateKey(new Date()).slice(0, 7)
   const [habitMonth, setHabitMonth] = useState<string>(() => load('star-room-habit-month', thisMonthKey))
@@ -738,16 +740,46 @@ function App() {
               tabIndex={0}
               aria-label="Toca para abrir a Bíblia. Arrasta para inclinar o livro em 3D."
               style={{ '--book-tilt-x': `${bookTilt.x}deg`, '--book-tilt-y': `${bookTilt.y}deg` } as CSSProperties}
-              onClick={openBibleBook}
+              onClick={event => {
+                if (bookDragRef.current) { event.preventDefault(); bookDragRef.current = false; return }
+                openBibleBook()
+              }}
               onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openBibleBook() } }}
+              onPointerDown={event => {
+                bookPointerStart.current = { x: event.clientX, y: event.clientY, dragged: false }
+                if (event.pointerType === 'touch') event.currentTarget.setPointerCapture(event.pointerId)
+              }}
               onPointerMove={event => {
-                if (event.pointerType === 'touch' || bibleOpening) return
+                if (bibleOpening) return
+                const start = bookPointerStart.current
+                if (event.pointerType === 'touch') {
+                  if (!start) return
+                  const dx = event.clientX - start.x
+                  const dy = event.clientY - start.y
+                  if (Math.hypot(dx, dy) > 7) start.dragged = true
+                  if (start.dragged) {
+                    setBookTilt({
+                      x: Math.max(-15, Math.min(15, dx * .55)),
+                      y: Math.max(-12, Math.min(12, dy * -.42)),
+                    })
+                  }
+                  return
+                }
                 const rect = event.currentTarget.getBoundingClientRect()
                 const horizontal = (event.clientX - rect.left) / rect.width
                 const vertical = (event.clientY - rect.top) / rect.height
                 setBookTilt({ x: (0.5 - horizontal) * 10, y: (0.5 - vertical) * 8 })
               }}
-              onPointerLeave={() => setBookTilt({ x: 0, y: 0 })}>
+              onPointerUp={event => {
+                if (bookPointerStart.current?.dragged) {
+                  bookDragRef.current = true
+                  window.setTimeout(() => { bookDragRef.current = false }, 350)
+                }
+                bookPointerStart.current = null
+                if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId)
+              }}
+              onPointerCancel={() => { bookPointerStart.current = null; bookDragRef.current = false; setBookTilt({ x: 0, y: 0 }) }}
+              onPointerLeave={() => { if (!bookPointerStart.current) setBookTilt({ x: 0, y: 0 }) }}>
               <div className="bible-book-pages" /><div className="bible-book-back" />
               <div className="bible-book-cover" aria-label="Capa de couro escuro">
                 <div className="book-cover-heading">HOLY BIBLE</div>
