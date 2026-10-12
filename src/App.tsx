@@ -661,14 +661,6 @@ function App() {
     showToast('Hábito adicionado.')
   }
 
-  const navItems: { id: Page; label: string }[] = [
-    { id: 'inicio', label: 'Início' },
-    { id: 'biblia', label: 'Bíblia' },
-    { id: 'anotacoes', label: 'Anotações' },
-    { id: 'habitos', label: 'Hábitos' },
-    { id: 'ajustes', label: 'Meu espaço' },
-  ]
-
   return (
     <main className={`site-shell atmosphere-${appearance.atmosphere} elements-${appearance.elements} motion-${appearance.motion} panels-${appearance.panelShape} shadows-${appearance.shadows} habits-${appearance.habitLayout} paper-${appearance.paperTexture}`} style={rootStyle}>
       <header className={`topbar ${page === 'inicio' ? 'topbar-home' : 'topbar-inner'}`}>
