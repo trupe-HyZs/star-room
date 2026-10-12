@@ -729,14 +729,8 @@ function App() {
           <div className="book-entry-stage">
             <div className={`bible-book-object ${bibleOpening ? 'is-opening' : ''}`} aria-hidden="true">
               <div className="bible-book-pages" /><div className="bible-book-back" />
-              <div className="bible-book-cover">
-                <div className="book-cover-stitch" />
-                <div className="book-cover-brand"><img src="/star-logo.png" alt="" /><span>STAR ROOM</span></div>
-                <div className="book-cover-heading">BÍBLIA</div>
-                <img className="book-cover-engraving" src="/bible-sketch.png" alt="" />
-                <div className="book-cover-subtitle">CADERNO DE ESTUDO</div>
-                <div className="book-cover-reference">LER · MARCAR · REFLETIR</div>
-                <div className="book-cover-bottom-star"><img src="/star-doodles.png" alt="" /></div>
+              <div className="bible-book-cover" aria-label="Capa de couro escuro">
+                <div className="book-cover-heading">HOLY BIBLE</div>
               </div>
             </div>
           </div>
