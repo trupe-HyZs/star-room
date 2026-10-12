@@ -689,7 +689,7 @@ function App() {
             </div>
             <div className="story-hands" aria-hidden="true">
               <span className="orbit orbit-one"/><span className="orbit orbit-two"/>
-              <img src="/praying-hands.svg" alt=""/>
+              <img src="https://res.publicdomainfiles.com/pdf_view/52/13526046019596.png" alt=""/>
               <span className="story-vertical-note">RESPIRA · ORA · CONFIA</span>
             </div>
             <span className="story-scroll-cue"><span/> DESLIZA PARA DESCOBRIR</span>
@@ -810,7 +810,7 @@ function App() {
                 {linkedChapterNotes.map(note => <button className="related-note" key={note.id} onClick={() => { setCategory(note.category); setActiveNoteId(note.id); setPage('anotacoes') }}><strong>{note.title}</strong><span>{note.content.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 84) || 'Abrir anotação'}</span><b>↗</b></button>)}
                 {linkedChapterNotes.length === 0 && <p className="related-empty">Quando anotares um versículo, ele aparece aqui.</p>}
               </div>
-              <div className="bible-margin-doodle" aria-hidden="true"><img src="/cross-sketch.png" alt="" /><img src="/praying-hands.svg" alt="" /></div>
+              <div className="bible-margin-doodle" aria-hidden="true"><img src="/cross-sketch.png" alt="" /><img src="https://res.publicdomainfiles.com/pdf_view/52/13526046019596.png" alt="" /></div>
               <div className="chapter-notes-save"><span className="notes-save-pip" /> Guardado neste navegador</div>
             </aside>
 
