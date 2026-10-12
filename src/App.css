@@ -2196,3 +2196,25 @@ button { transition-timing-function: cubic-bezier(.2,.7,.25,1); }
  .home-bible-model,.pen-model3d,.star-model3d,.tracker-notebook-model { animation:none!important; }
  .story-object-section.is-launching .story-object { transform:none!important; }
 }
+
+
+/* Preserve visible depth layers when an object is hovered or launched. */
+.story-notes:hover .pen-model3d img,
+.story-notes:focus-visible .pen-model3d img {
+  transform:translateZ(7px) rotate(-2deg) scale(1.02);
+}
+.story-goals:hover .star-model3d .star-depth-4,
+.story-goals:focus-visible .star-model3d .star-depth-4 { transform:translateZ(-18px) translate(7px,6px) scale(1.09); }
+.story-goals:hover .star-model3d .star-depth-3,
+.story-goals:focus-visible .star-model3d .star-depth-3 { transform:translateZ(-13px) translate(5px,4px) scale(1.09); }
+.story-goals:hover .star-model3d .star-depth-2,
+.story-goals:focus-visible .star-model3d .star-depth-2 { transform:translateZ(-8px) translate(3px,2px) scale(1.09); }
+.story-goals:hover .star-model3d .star-depth-1,
+.story-goals:focus-visible .star-model3d .star-depth-1 { transform:translateZ(-3px) translate(1px,1px) scale(1.09); }
+.story-goals:hover .star-model3d .star-front,
+.story-goals:focus-visible .star-model3d .star-front { transform:translateZ(3px) scale(1.09); }
+.story-goals.is-launching .star-model3d .star-depth-4 { transform:translateZ(-18px) translate(7px,6px) scale(1.38); }
+.story-goals.is-launching .star-model3d .star-depth-3 { transform:translateZ(-13px) translate(5px,4px) scale(1.38); }
+.story-goals.is-launching .star-model3d .star-depth-2 { transform:translateZ(-8px) translate(3px,2px) scale(1.38); }
+.story-goals.is-launching .star-model3d .star-depth-1 { transform:translateZ(-3px) translate(1px,1px) scale(1.38); }
+.story-goals.is-launching .star-model3d .star-front { transform:translateZ(3px) scale(1.38); }
