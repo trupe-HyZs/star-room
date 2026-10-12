@@ -32,7 +32,7 @@ const defaultAppearance: Appearance = {
   jesusStyle: 'margin', habitLayout: 'journal', elements: 'symbolic', palette: 'custom',
   shadows: 'soft', panelShape: 'soft', motion: 'reveal', paperTexture: 'dots', readingSize: 18,
   homeTagline: 'Um lugar para as tuas ideias.',
-  colors: { background: '#070b13', surface: '#121b29', paper: '#e9e3d6', accent: '#9fc7fa', secondary: '#c9a95f', text: '#f2f0ea', muted: '#a6b0c1', paperText: '#292b30' },
+  colors: { background: '#080808', surface: '#171717', paper: '#ece9e2', accent: '#e8e6e1', secondary: '#858585', text: '#f4f2ed', muted: '#aaa7a1', paperText: '#242424' },
 }
 
 function localDateKey(date: Date) {
@@ -202,12 +202,19 @@ function App() {
   const [page, setPage] = useState<Page>('inicio')
   const [bibleBookOpen, setBibleBookOpen] = useState(false)
   const [bibleOpening, setBibleOpening] = useState(false)
+  const [bookTilt, setBookTilt] = useState({ x: 0, y: 0 })
   const bibleOpenTimer = useRef<number | null>(null)
   const thisMonthKey = localDateKey(new Date()).slice(0, 7)
   const [habitMonth, setHabitMonth] = useState<string>(() => load('star-room-habit-month', thisMonthKey))
   const [appearance, setAppearance] = useState<Appearance>(() => {
     const saved = load<Partial<Appearance>>('star-room-appearance', {})
-    return { ...defaultAppearance, ...saved, colors: { ...defaultAppearance.colors, ...(saved.colors ?? {}) } }
+    const colors = { ...defaultAppearance.colors, ...(saved.colors ?? {}) }
+    // Migrate previous default blue/gold choices to ink-and-paper without overwriting custom colors.
+    if (saved.colors?.accent?.toLowerCase() === '#9fc7fa') colors.accent = '#e8e6e1'
+    if (saved.colors?.secondary?.toLowerCase() === '#c9a95f') colors.secondary = '#858585'
+    if (saved.colors?.background?.toLowerCase() === '#070b13') colors.background = '#080808'
+    if (saved.colors?.surface?.toLowerCase() === '#121b29') colors.surface = '#171717'
+    return { ...defaultAppearance, ...saved, colors }
   })
   const [habitHistory, setHabitHistory] = useState<Record<string, string[]>>(() => {
     const stored = load<Record<string, string[]>>('star-room-habit-log', {})
@@ -686,18 +693,17 @@ function App() {
                 <button className="home-secondary-action" onClick={() => createNote({ title: 'Salmos 1:3', category: 'Devocional', content: `<blockquote>${escapeHtml(`Salmos 1:3 — ${dailyVerse || fallbackDailyVerse}`)}</blockquote><p><br></p>` })}>Guardar reflexão <span>＋</span></button>
               </div>
             </div>
-            <div className="home-star-art" aria-label="Estrela de oito pontas em pixel art" role="img">
-              <div className="home-star-halo" />
-              <div className="home-star-pixel-field" />
-              <img src="/pixel-star.png" className="home-pixel-star" alt="Estrela celeste em pixel art azul, ciano e dourado" />
-              <span className="home-star-spark spark-1" /><span className="home-star-spark spark-2" /><span className="home-star-spark spark-3" />
+            <div className="home-prayer-art scroll-reveal" aria-label="Mãos unidas em oração, ilustração de gravura preta e branca" role="img">
+              <span className="prayer-art-caption">UM MOMENTO DE PAZ</span>
+              <img src="/praying-hands.svg" alt="Mãos em oração, desenhadas como gravura de tinta preta e branca" />
+              <span className="prayer-art-mark" aria-hidden="true">✳</span>
             </div>
           </section>
 
           <nav className="home-shortcuts scroll-reveal" aria-label="Atalhos do Star Room">
             <button className="home-shortcut home-shortcut-bible" onClick={() => setPage('biblia')}><span className="shortcut-star-stamp"><img src="/bible-sketch.png" alt="" /></span><span><strong>Bíblia</strong><small>Leitura e grifamento</small></span><b aria-hidden="true">↗</b></button>
-            <button className="home-shortcut home-shortcut-notes" onClick={() => setPage('anotacoes')}><span className="shortcut-star-stamp"><img src="/star-doodles.png" alt="" /></span><span><strong>Anotações</strong><small>Escreve com liberdade</small></span><b aria-hidden="true">↗</b></button>
-            <button className="home-shortcut home-shortcut-habits" onClick={() => setPage('habitos')}><span className="shortcut-star-stamp shortcut-habit-doodle"><span className="mini-habit-grid"><i /><i /><i /><i /><i /><i /><i /><i /><i /></span></span><span><strong>Hábitos</strong><small>Rotina em registo mensal</small></span><b aria-hidden="true">↗</b></button>
+            <button className="home-shortcut home-shortcut-notes" onClick={() => setPage('anotacoes')}><span className="shortcut-star-stamp"><img src="/engraved-books.svg" alt="" /></span><span><strong>Anotações</strong><small>Escreve com liberdade</small></span><b aria-hidden="true">↗</b></button>
+            <button className="home-shortcut home-shortcut-habits" onClick={() => setPage('habitos')}><span className="shortcut-star-stamp"><img src="/habit-tracker.svg" alt="" /></span><span><strong>Hábitos</strong><small>Rotina em registo mensal</small></span><b aria-hidden="true">↗</b></button>
           </nav>
           <section className="room-inventory scroll-reveal" aria-label="O teu quarto em andamento">
             <div className="room-inventory-heading"><span className="room-eyebrow">O TEU QUARTO</span><h2>As coisas que estás a cultivar.</h2></div>
@@ -727,7 +733,21 @@ function App() {
 
         {page === 'biblia' && !bibleBookOpen && <section className={`bible-book-entry page-enter ${bibleOpening ? 'book-opening' : ''}`} aria-label="Capa da Bíblia">
           <div className="book-entry-stage">
-            <div className={`bible-book-object ${bibleOpening ? 'is-opening' : ''}`} aria-hidden="true">
+            <div className={`bible-book-object ${bibleOpening ? 'is-opening' : ''}`}
+              role="button"
+              tabIndex={0}
+              aria-label="Toca para abrir a Bíblia. Arrasta para inclinar o livro em 3D."
+              style={{ '--book-tilt-x': `${bookTilt.x}deg`, '--book-tilt-y': `${bookTilt.y}deg` } as CSSProperties}
+              onClick={openBibleBook}
+              onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openBibleBook() } }}
+              onPointerMove={event => {
+                if (event.pointerType === 'touch' || bibleOpening) return
+                const rect = event.currentTarget.getBoundingClientRect()
+                const horizontal = (event.clientX - rect.left) / rect.width
+                const vertical = (event.clientY - rect.top) / rect.height
+                setBookTilt({ x: (0.5 - horizontal) * 10, y: (0.5 - vertical) * 8 })
+              }}
+              onPointerLeave={() => setBookTilt({ x: 0, y: 0 })}>
               <div className="bible-book-pages" /><div className="bible-book-back" />
               <div className="bible-book-cover" aria-label="Capa de couro escuro">
                 <div className="book-cover-heading">HOLY BIBLE</div>
@@ -737,12 +757,12 @@ function App() {
           <div className="book-entry-copy">
             <span className="book-entry-kicker">STAR ROOM / BÍBLIA</span>
             <h1>Um livro.<br /><span>Muitas páginas.</span></h1>
-            <p>A tua leitura fica guardada onde paraste. Abre a Bíblia para continuares.</p>
+            <p className="book-touch-instruction">Toca na capa para abrir. Move o cursor para inclinar o livro.</p>
             <div className="book-entry-pickers">
               <label><span>CONTINUAR EM</span><select value={bookId} onChange={event => { setBookId(Number(event.target.value)); setChapter(1) }} aria-label="Escolher livro para abrir">{books.map(book => <option value={book.id} key={book.id}>{book.name}</option>)}</select></label>
               <label><span>CAPÍTULO</span><select value={chapter} onChange={event => setChapter(Number(event.target.value))} aria-label="Escolher capítulo para abrir">{Array.from({ length: currentBook.chapters }, (_, index) => index + 1).map(number => <option value={number} key={number}>{number}</option>)}</select></label>
             </div>
-            <button className="open-bible-button" onClick={openBibleBook} disabled={bibleOpening}>{bibleOpening ? 'A abrir as páginas…' : 'Abrir a Bíblia'} <span aria-hidden="true">→</span></button>
+            <p className="book-touch-hint"><span aria-hidden="true">↳</span> A capa é interativa</p>
             <p className="last-reading-line">Última leitura <strong>{currentBook.name} {chapter}</strong></p>
           </div>
         </section>}
@@ -767,7 +787,7 @@ function App() {
                 {linkedChapterNotes.map(note => <button className="related-note" key={note.id} onClick={() => { setCategory(note.category); setActiveNoteId(note.id); setPage('anotacoes') }}><strong>{note.title}</strong><span>{note.content.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 84) || 'Abrir anotação'}</span><b>↗</b></button>)}
                 {linkedChapterNotes.length === 0 && <p className="related-empty">Quando anotares um versículo, ele aparece aqui.</p>}
               </div>
-              <div className="bible-margin-doodle" aria-hidden="true"><img src="/cross-sketch.png" alt="" /><img src="/star-doodles.png" alt="" /></div>
+              <div className="bible-margin-doodle" aria-hidden="true"><img src="/cross-sketch.png" alt="" /><img src="/praying-hands.svg" alt="" /></div>
               <div className="chapter-notes-save"><span className="notes-save-pip" /> Guardado neste navegador</div>
             </aside>
 
@@ -813,7 +833,7 @@ function App() {
               <div className="category-options">{folders.map(item => <div key={item} className={`folder-option-wrap ${category === item ? 'folder-selected' : ''}`}><button className={`folder-select ${category === item ? 'active-category' : ''}`} onClick={() => { setCategory(item); setActiveNoteId(notes.find(note => note.category === item)?.id ?? null) }}><span className="category-glyph"><img src="/star-logo.png" alt="" /></span><span className="folder-name">{item}</span><small>{notes.filter(note => note.category === item).length}</small></button><button className="folder-delete" title={`Excluir pasta ${item}`} aria-label={`Excluir pasta ${item}`} onClick={() => deleteFolder(item)}>×</button></div>)}</div>
               <div className="notes-list-heading"><span>ANOTAÇÕES</span><button onClick={() => createNote()} aria-label="Criar nota">＋</button></div>
               <label className="note-search"><input value={noteSearch} onChange={event => setNoteSearch(event.target.value)} placeholder="Buscar notas..." /></label>
-              <div className="notes-list">{categoryNotes.map(note => <button key={note.id} className={`note-list-item ${activeNoteId === note.id ? 'selected-note' : ''}`} onClick={() => setActiveNoteId(note.id)}><strong>{note.title || 'Nova anotação'}</strong><small>{new Date(note.updatedAt).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' })}</small><span>{note.content.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 82) || 'Sem texto ainda'}</span></button>)}{categoryNotes.length === 0 && <div className="notes-empty-list"><img src="/star-logo.png" alt="" /><p>Nenhuma nota nesta pasta.</p><button onClick={() => createNote()}>Criar uma nota</button></div>}</div>
+              <div className="notes-list">{categoryNotes.map(note => <button key={note.id} className={`note-list-item ${activeNoteId === note.id ? 'selected-note' : ''}`} onClick={() => setActiveNoteId(note.id)}><strong>{note.title || 'Nova anotação'}</strong><small>{new Date(note.updatedAt).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' })}</small><span>{note.content.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 82) || 'Sem texto ainda'}</span></button>)}{categoryNotes.length === 0 && <div className="notes-empty-list"><img src="/engraved-books.svg" alt="" /><p>Nenhuma nota nesta pasta.</p><button onClick={() => createNote()}>Criar uma nota</button></div>}</div>
               <div className="notes-sidebar-bottom"><span className="sync-pip" /> SALVO NESTE NAVEGADOR</div>
             </aside>
             <section className="note-workspace">
