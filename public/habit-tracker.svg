@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 230" role="img" aria-labelledby="title desc">
+<title id="title">Rastreador de hábitos em gravura</title>
+<desc id="desc">Página de caderno com uma grelha mensal e uma caneta, em preto e branco.</desc>
+<path d="M36 24L177 17L191 30L187 196L43 207L30 193L36 24Z" fill="#fff" stroke="#080808" stroke-width="5" stroke-linejoin="round"/>
+<path d="M48 43L170 37M48 57L168 51" stroke="#111" stroke-width="3"/>
+<path d="M50 73L170 64M50 95L170 86M50 117L170 108M50 139L170 130M50 161L170 152M50 183L170 174" stroke="#111" stroke-width="1.5" opacity=".75"/>
+<path d="M65 66L63 190M86 65L84 188M107 66L105 187M128 65L126 185M149 66L147 181M170 65L168 179" stroke="#111" stroke-width="1.5" opacity=".75"/>
+<path d="M54 81L62 89L75 71M96 102L104 110L117 92M138 123L146 131L159 113M53 146L61 154L74 136M117 166L125 174L138 156" fill="none" stroke="#111" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M148 29L189 3L204 17L180 58L164 70L143 51Z" fill="#111" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>
+<path d="M162 26L186 50M172 19L194 41M154 36L178 59" stroke="#fff" stroke-width="1.5" opacity=".85"/>
+<path d="M143 51L164 70L157 73L138 56Z" fill="#111"/>
+<path d="M34 216L182 205" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+</svg>
