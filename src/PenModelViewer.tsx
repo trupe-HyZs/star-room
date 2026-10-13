@@ -232,9 +232,19 @@ export function PenModelViewer({
       onClick={interactive ? event => event.stopPropagation() : undefined}
     >
       {status !== 'ready' && (
-        <span className={`pen-software-viewer__status ${status === 'error' ? 'is-error' : ''}`} role={status === 'error' ? 'status' : undefined}>
-          {status === 'loading' ? 'A carregar o modelo 3D…' : 'Não foi possível carregar o modelo 3D.'}
-        </span>
+        <>
+          <img
+            className="pen-software-viewer__fallback"
+            src="/ink-pen.svg"
+            alt=""
+            aria-hidden="true"
+          />
+          {status === 'loading' && (
+            <span className="pen-software-viewer__status">
+              A carregar o modelo 3D…
+            </span>
+          )}
+        </>
       )}
       {interactive && status === 'ready' && <span className="pen-software-viewer__hint">ARRASTA PARA GIRAR</span>}
     </div>
