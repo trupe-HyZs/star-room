@@ -727,67 +727,52 @@ function App() {
       </header>
 
       <div className={`app-content page-${page}`} key={page}>
-        {page === 'inicio' && <section className="home-view home-canva home-story page-enter">
-          <section className="story-verse" aria-label="Versículo do dia">
+        {page === 'inicio' && <section className="home-view home-canva home-story page-enter home-redesign">
+          <section className="story-verse home-redesign-hero" aria-label="Versículo do dia">
             <div className="story-verse-copy">
-              <span className="story-index">00 / UM MOMENTO DE PAZ</span>
-              <p className="story-verse-label">VERSÍCULO DO DIA</p>
-              <h1>Encontra um<br/><em>momento de paz.</em></h1>
+              <span className="story-index">STAR ROOM <i/> O TEU ESPAÇO PESSOAL</span>
+              <p className="story-verse-label">UM MOMENTO COM DEUS</p>
+              <h1>Encontra espaço<br/>para <em>o que importa.</em></h1>
               <blockquote>{dailyVerseLoading ? 'A preparar a Palavra…' : dailyVerse || fallbackDailyVerse}</blockquote>
               <span className="story-reference">SALMOS 1:3 <i/> {apiReady ? 'NVI' : 'PRÉVIA'}</span>
-              <button className="story-text-link" onClick={() => openBibleAt(19,1)}>Ler o capítulo <span>↗</span></button>
+              <button className="story-text-link" onClick={() => openBibleAt(19,1)}>Continuar na Palavra <span>↗</span></button>
             </div>
-            <div className="story-hands" aria-hidden="true">
-              <span className="orbit orbit-one"/><span className="orbit orbit-two"/>
-              <img src="https://res.publicdomainfiles.com/pdf_view/52/13526046019596.png" alt=""/>
-              <span className="story-vertical-note">RESPIRA · ORA · CONFIA</span>
+            <div className="home-redesign-orbit" aria-hidden="true">
+              <span className="home-redesign-orbit-ring ring-one"/><span className="home-redesign-orbit-ring ring-two"/>
+              <span className="home-redesign-glow"/>
+              <span className="home-redesign-cross">✳</span>
+              <span className="home-redesign-orbit-caption">PAUSA · PRESENÇA · PROPÓSITO</span>
             </div>
-            <span className="story-scroll-cue"><span/> DESLIZA PARA DESCOBRIR</span>
+            <span className="story-scroll-cue"><span/> O TEU ESPAÇO, AO TEU RITMO</span>
           </section>
 
-          <button className={`story-object-section story-bible scroll-reveal ${launchingSection === 'bible' ? 'is-launching' : ''}`} onClick={() => launchSection('bible')} aria-label="Entrar na Bíblia">
-            <span className="story-section-index">01</span>
-            <span className="story-object bible-object-art" aria-hidden="true">
-              <span className="home-bible-model">
-                <span className="home-bible-pages"/><span className="home-bible-back"/><span className="home-bible-spine"/>
-                <span className="home-bible-cover"><span>HOLY BIBLE</span></span>
-              </span>
-            </span>
-            <span className="story-object-copy"><span className="story-kicker">A PALAVRA DE DEUS</span><strong>O livro sagrado.</strong><p>Um lugar para ler, refletir e guardar aquilo que fala contigo.</p><span className="story-action-hint">TOCA NO LIVRO PARA ABRIR <b>↗</b></span></span>
-            <span className="story-margin-note">Ler.<br/>Meditar.<br/>Viver.</span>
-          </button>
-
-          <button className={`story-object-section story-notes scroll-reveal ${launchingSection === 'notes' ? 'is-launching' : ''}`} onClick={() => launchSection('notes')} aria-label="Entrar nas anotações">
-            <span className="story-section-index">02</span>
-            <span className="story-object pen-object-art" aria-hidden="true">
-              <PenModelViewer className="pen-software-viewer--home" label="Modelo 3D de uma caneta-tinteiro" />
-            </span>
-            <span className="story-object-copy"><span className="story-kicker">UM ESPAÇO PARA TI</span><strong>Coloca os teus<br/>pensamentos no papel.</strong><p>Orações, ideias, planos e tudo o que não queres esquecer.</p><span className="story-action-hint">TOCA PARA ESCREVER <b>↗</b></span></span>
-            <span className="story-margin-note">Escreve.<br/>Solta.<br/>Guarda.</span>
-          </button>
-
-          <button className={`story-object-section story-goals scroll-reveal ${launchingSection === 'goals' ? 'is-launching' : ''}`} onClick={() => launchSection('goals')} aria-label="Entrar nos hábitos e metas">
-            <span className="story-section-index">03</span>
-            <span className="story-object star-object-art" aria-hidden="true">
-              <span className="star-aura"/>
-              <span className="star-model3d">
-                <img className="star-depth star-depth-4" src="/pixel-star.png" alt=""/>
-                <img className="star-depth star-depth-3" src="/pixel-star.png" alt=""/>
-                <img className="star-depth star-depth-2" src="/pixel-star.png" alt=""/>
-                <img className="star-depth star-depth-1" src="/pixel-star.png" alt=""/>
-                <img className="star-front" src="/pixel-star.png" alt=""/>
-              </span>
-            </span>
-            <span className="story-object-copy"><span className="story-kicker">PEQUENOS PASSOS, GRANDES MUDANÇAS</span><strong>E as tuas metas<br/>e objetivos?</strong><p>Vamos chegar lá? Um dia de cada vez, ao teu ritmo.</p><span className="story-action-hint">TOCA NA ESTRELA <b>↗</b></span></span>
-            <span className="story-margin-note">Sonha.<br/>Planeia.<br/>Constrói.</span>
-          </button>
-
-          <button className={`story-object-section story-tracker scroll-reveal ${launchingSection === 'tracker' ? 'is-launching' : ''}`} onClick={() => launchSection('tracker')} aria-label="Abrir tracker mensal e lembretes">
-            <span className="story-section-index">04</span>
-            <span className="story-object tracker-object-art" aria-hidden="true"><span className="tracker-notebook-model"><span className="tracker-notebook-pages"/><img src="/habit-tracker.svg" alt=""/></span></span>
-            <span className="story-object-copy"><span className="story-kicker">O TEU CADERNO DE ROTINA</span><strong>O que fazes hoje<br/>constrói o amanhã.</strong><p>Hábitos, rotina e lembretes num tracker mensal que vais preenchendo.</p><span className="story-action-hint">ABRIR O TEU TRACKER <b>↗</b></span></span>
-          </button>
-          <footer className="story-footer"><img src="/star-logo.png" alt="STAR"/><span>O TEU QUARTO DIGITAL</span><span>FEITO PARA SER TEU.</span><button onClick={() => setPage('ajustes')}>PERSONALIZAR ↗</button></footer>
+          <div className="home-redesign-section-heading">
+            <div><span className="story-kicker">O TEU QUARTO DIGITAL</span><h2>Por onde começamos?</h2></div>
+            <span>04 ESPAÇOS <i/></span>
+          </div>
+          <div className="home-redesign-grid">
+            <button className={`story-object-section story-bible home-redesign-card ${launchingSection === 'bible' ? 'is-launching' : ''}`} onClick={() => launchSection('bible')} aria-label="Entrar na Bíblia">
+              <span className="home-redesign-card-top"><span>01 / ESPIRITUALIDADE</span><span className="home-redesign-arrow">↗</span></span>
+              <span className="story-object bible-object-art" aria-hidden="true"><span className="home-bible-model"><span className="home-bible-pages"/><span className="home-bible-back"/><span className="home-bible-spine"/><span className="home-bible-cover"><span>HOLY BIBLE</span></span></span></span>
+              <span className="story-object-copy"><span className="story-kicker">A PALAVRA DE DEUS</span><strong>A Palavra.</strong><p>Um lugar para ler, refletir e guardar aquilo que fala contigo.</p><span className="story-action-hint">ABRIR A BÍBLIA <b>↗</b></span></span>
+            </button>
+            <button className={`story-object-section story-notes home-redesign-card ${launchingSection === 'notes' ? 'is-launching' : ''}`} onClick={() => launchSection('notes')} aria-label="Entrar nas anotações">
+              <span className="home-redesign-card-top"><span>02 / REFLEXÃO</span><span className="home-redesign-arrow">↗</span></span>
+              <span className="story-object pen-object-art" aria-hidden="true"><PenModelViewer className="pen-software-viewer--home" label="Lapiseira 3D" /></span>
+              <span className="story-object-copy"><span className="story-kicker">UM ESPAÇO PARA TI</span><strong>Pensamentos.</strong><p>Orações, ideias e planos num espaço privado para escreveres.</p><span className="story-action-hint">COMEÇAR A ESCREVER <b>↗</b></span></span>
+            </button>
+            <button className={`story-object-section story-goals home-redesign-card ${launchingSection === 'goals' ? 'is-launching' : ''}`} onClick={() => launchSection('goals')} aria-label="Entrar nos hábitos e metas">
+              <span className="home-redesign-card-top"><span>03 / CRESCIMENTO</span><span className="home-redesign-arrow">↗</span></span>
+              <span className="story-object star-object-art" aria-hidden="true"><span className="star-aura"/><span className="star-model3d"><img className="star-depth star-depth-4" src="/pixel-star.png" alt=""/><img className="star-depth star-depth-3" src="/pixel-star.png" alt=""/><img className="star-depth star-depth-2" src="/pixel-star.png" alt=""/><img className="star-depth star-depth-1" src="/pixel-star.png" alt=""/><img className="star-front" src="/pixel-star.png" alt=""/></span></span>
+              <span className="story-object-copy"><span className="story-kicker">PEQUENOS PASSOS</span><strong>Metas e hábitos.</strong><p>Constrói uma rotina que te ajuda a crescer, um dia de cada vez.</p><span className="story-action-hint">VER AS MINHAS METAS <b>↗</b></span></span>
+            </button>
+            <button className={`story-object-section story-tracker home-redesign-card ${launchingSection === 'tracker' ? 'is-launching' : ''}`} onClick={() => launchSection('tracker')} aria-label="Abrir tracker mensal e lembretes">
+              <span className="home-redesign-card-top"><span>04 / CONSISTÊNCIA</span><span className="home-redesign-arrow">↗</span></span>
+              <span className="story-object tracker-object-art" aria-hidden="true"><span className="tracker-notebook-model"><span className="tracker-notebook-pages"/><img src="/habit-tracker.svg" alt=""/></span></span>
+              <span className="story-object-copy"><span className="story-kicker">O TEU CADERNO DE ROTINA</span><strong>O teu progresso.</strong><p>Acompanha o mês e transforma pequenas ações em consistência.</p><span className="story-action-hint">ABRIR O TRACKER <b>↗</b></span></span>
+            </button>
+          </div>
+          <footer className="story-footer home-redesign-footer"><img src="/star-logo.png" alt="STAR"/><span>UM ESPAÇO PARA CRESCER COM INTENÇÃO</span><button onClick={() => setPage('ajustes')}>PERSONALIZAR O ESPAÇO ↗</button></footer>
         </section>}
 
         {page === 'biblia' && !bibleBookOpen && <section className={`bible-book-entry page-enter ${bibleOpening ? 'book-opening' : ''}`} aria-label="Capa da Bíblia">
