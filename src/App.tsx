@@ -208,6 +208,8 @@ function App() {
   const [bibleBookOpen, setBibleBookOpen] = useState(false)
   const [bibleOpening, setBibleOpening] = useState(false)
   const [bookTilt, setBookTilt] = useState({ x: 0, y: 0 })
+  const [bibleSpin, setBibleSpin] = useState({ x: 8, y: -27 })
+  const bibleSpinPointer = useRef<{ x: number; y: number; pointerId: number } | null>(null)
   const bookPointerStart = useRef<{ x: number; y: number; dragged: boolean } | null>(null)
   const bookDragRef = useRef(false)
   const bibleOpenTimer = useRef<number | null>(null)
@@ -993,7 +995,7 @@ function App() {
           <button className="object-zoom-close" onClick={() => setFocusedObject(null)} aria-label="Voltar ao quarto">×</button>
           <div className="object-zoom-scene">
             {focusedObject === 'notes' && <PenModelViewer className="pen-software-viewer--detail" interactive label="Modelo 3D interativo de caneta-tinteiro" />}
-            {focusedObject === 'bible' && <span className="zoom-bible-model" aria-hidden="true"><span className="home-bible-pages"/><span className="home-bible-back"/><span className="home-bible-spine"/><span className="home-bible-cover"><span>HOLY BIBLE</span></span></span>}
+            {focusedObject === 'bible' && <span className="zoom-bible-model" role="img" aria-label="Livro interativo. Arraste para girar em 360 graus." style={{ transform: `rotateY(${bibleSpin.y}deg) rotateX(${bibleSpin.x}deg) rotateZ(-7deg)` }} onPointerDown={event => { bibleSpinPointer.current = { x: event.clientX, y: event.clientY, pointerId: event.pointerId }; event.currentTarget.setPointerCapture(event.pointerId); }} onPointerMove={event => { const start = bibleSpinPointer.current; if (!start || start.pointerId !== event.pointerId) return; const dx = event.clientX - start.x; const dy = event.clientY - start.y; if (dx === 0 && dy === 0) return; setBibleSpin(current => ({ x: Math.max(-85, Math.min(85, current.x - dy * .65)), y: (current.y + dx * .8) % 360 })); bibleSpinPointer.current = { x: event.clientX, y: event.clientY, pointerId: event.pointerId }; }} onPointerUp={event => { bibleSpinPointer.current = null; if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId); }} onPointerCancel={() => { bibleSpinPointer.current = null; }}><span className="home-bible-pages"/><span className="home-bible-back"/><span className="home-bible-spine"/><span className="home-bible-cover"><span>HOLY BIBLE</span></span></span>}
             {focusedObject === 'goals' && <span className="zoom-star-model" aria-hidden="true"><img src="/pixel-star.png" alt=""/><i/><i/><i/></span>}
             {focusedObject === 'tracker' && <span className="zoom-tracker-model" aria-hidden="true"><span/><img src="/habit-tracker.svg" alt=""/></span>}
           </div>
