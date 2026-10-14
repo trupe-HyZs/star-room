@@ -2819,3 +2819,116 @@ button { transition-timing-function: cubic-bezier(.2,.7,.25,1); }
   .inner-page-name { display:none; }
   .object-zoom-dialog { border-radius:2px; }
 }
+
+
+/* STAR ROOM visual reset v2 — target the actual page classes used by the app. */
+.site-shell {
+  --space:#050505 !important;
+  --surface:rgba(13,13,13,.94) !important;
+  --surface-strong:#101010 !important;
+  --line:rgba(255,255,255,.16) !important;
+  --line-bright:rgba(0,132,255,.5) !important;
+  --ink:#f3f3f3 !important;
+  --muted:#a3a3a3 !important;
+  --dim:#747474 !important;
+  --cyan:#078bff !important;
+  --blue:#078bff !important;
+  --violet:#b8d9ff !important;
+  background:#050505 !important;
+  color:#f3f3f3 !important;
+  font-family:'DM Sans',Inter,system-ui,sans-serif !important;
+}
+.site-shell::before {
+  background-image:radial-gradient(ellipse at 74% 28%,rgba(0,102,255,.09),transparent 36%),linear-gradient(115deg,rgba(0,0,0,.99),rgba(5,5,5,.97)),var(--texture) !important;
+}
+.site-shell::after {
+  opacity:.35 !important;
+  background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.018) 0 1px,transparent 1px 5px) !important;
+  background-size:auto !important;
+  mask-image:none !important;
+}
+.topbar { background:rgba(0,0,0,.94) !important; border-bottom:1px solid rgba(255,255,255,.14) !important; backdrop-filter:blur(18px); }
+.topbar-inner,.inner-nav,.brand-lockup { color:#f3f3f3 !important; }
+.inner-page-name { color:#f3f3f3 !important; }
+.home-view,.bible-view,.notes-view,.habits-view,.settings-view {
+  color:#f3f3f3 !important;
+}
+.home-view .glass-card,.bible-view .glass-card,.notes-view .glass-card,.habits-view .glass-card,.settings-view .glass-card,
+.home-view .journal-surface,.bible-view .journal-surface,.notes-view .journal-surface,.habits-view .journal-surface,.settings-view .journal-surface,
+.notes-app,.notes-sidebar,.note-workspace,.habit-checklist,.habit-trend-panel,.settings-live-preview,.settings-preview-sticky {
+  background:rgba(10,10,10,.82) !important;
+  border:1px solid rgba(255,255,255,.14) !important;
+  border-radius:3px !important;
+  box-shadow:none !important;
+  backdrop-filter:blur(12px);
+}
+.home-view h1,.home-view h2,.home-view h3,.bible-view h1,.bible-view h2,.bible-view h3,
+.notes-view h1,.notes-view h2,.notes-view h3,.habits-view h1,.habits-view h2,.habits-view h3,
+.settings-view h1,.settings-view h2,.settings-view h3 { color:#f3f3f3; }
+.home-view .story-kicker,.home-view .story-verse-label,.home-view .story-reference,
+.home-view .story-section-index,.home-view .story-action-hint,.home-view .story-margin-note,
+.bible-view .section-kicker,.notes-view .section-kicker,.habits-view .section-kicker,.settings-view .section-kicker,
+.home-view .home-preview-label,.home-view .home-verse-reference { color:#078bff !important; }
+.home-view .story-text-link,.home-view .home-primary-action,.bible-view .open-bible-button,
+.notes-view .button-primary,.habits-view .button-primary,.settings-view .button-primary,
+.object-zoom-enter {
+  color:#fff !important;
+  background:#087ff0 !important;
+  border:1px solid #168dff !important;
+  border-radius:2px !important;
+  box-shadow:none !important;
+}
+.home-view .story-object,.home-view .story-hands,.home-view .home-bible-model,
+.home-view .home-star-art,.home-view .tracker-notebook-model { cursor:grab; }
+.home-view .story-object:active,.home-view .home-bible-model:active { cursor:grabbing; }
+.home-view .home-bible-cover,.zoom-bible-model .home-bible-cover {
+  background:linear-gradient(145deg,#181818,#050505 62%,#111) !important;
+  border:1px solid rgba(255,255,255,.25) !important;
+}
+.home-view .home-bible-cover > span,.zoom-bible-model .home-bible-cover > span {
+  color:#d5d5d5 !important;
+  text-shadow:0 1px 2px #000 !important;
+}
+.home-view .home-bible-pages,.zoom-bible-model .home-bible-pages {
+  background:repeating-linear-gradient(0deg,#d8d2c5 0 1px,#f5efe3 1px 4px) !important;
+}
+.home-view .story-object-copy { color:#eee; }
+.bible-view .bible-reader,.bible-view .bible-reader-canva,.bible-view .bible-canva,
+.bible-view .chapter-notes-panel,.bible-view .chapter-notes-paper {
+  background:#090909 !important;
+  border-color:rgba(255,255,255,.15) !important;
+  box-shadow:none !important;
+}
+.bible-view .bible-book-cover,.bible-view .bible-book-back { background-color:#080808 !important; }
+.notes-view .note-paper,.notes-view .note-title-plain,.notes-view .note-editor-top,
+.habits-view .habit-journal-paper,.habits-view .habit-journal-scroll {
+  background-color:#0a0a0a !important;
+  color:#eee !important;
+  border-color:rgba(255,255,255,.14) !important;
+}
+.notes-view input,.notes-view textarea,.habits-view input,.settings-view input,.settings-view select,
+.bible-view select,.bible-view input,.bible-view textarea {
+  color:#f3f3f3 !important;
+  background:#121212 !important;
+  border-color:rgba(255,255,255,.22) !important;
+  border-radius:3px !important;
+}
+.home-view button,.bible-view button,.notes-view button,.habits-view button,.settings-view button,
+.home-view a,.bible-view a,.notes-view a,.habits-view a,.settings-view a {
+  transition:color .18s ease,border-color .18s ease,background .18s ease,transform .18s ease;
+}
+.home-view button:hover,.bible-view button:hover,.notes-view button:hover,.habits-view button:hover,.settings-view button:hover {
+  border-color:rgba(0,132,255,.65) !important;
+}
+.object-zoom-overlay { background:rgba(0,0,0,.94) !important; backdrop-filter:blur(18px); }
+.object-zoom-dialog {
+  background:radial-gradient(ellipse at 35% 45%,rgba(0,100,255,.08),transparent 46%),#070707 !important;
+  border:1px solid rgba(255,255,255,.18) !important;
+  border-radius:3px !important;
+  box-shadow:0 30px 120px rgba(0,0,0,.8) !important;
+}
+.zoom-bible-model { transform-style:preserve-3d !important; will-change:transform; }
+@media(max-width:760px) {
+  .notes-app { grid-template-columns:minmax(0,1fr) !important; }
+  .object-zoom-dialog { border-radius:3px !important; }
+}
