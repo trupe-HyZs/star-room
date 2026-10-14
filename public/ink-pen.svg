@@ -1,54 +1,44 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 300" fill="none" role="img" aria-labelledby="title desc">
-<title id="title">Caneta-tinteiro premium</title>
-<desc id="desc">Caneta-tinteiro preta brilhante com detalhes dourados, ponta metálica e sombra suave, inclinada na diagonal.</desc>
+<title id="title">Lapiseira lavanda</title><desc id="desc">Lapiseira elegante em tons de lavanda, grafite e prata, com detalhes metálicos e sombra suave.</desc>
 <defs>
-  <linearGradient id="lacquer" x1="0" y1="0" x2="0" y2="1">
-    <stop stop-color="#565a62"/><stop offset=".12" stop-color="#171a20"/><stop offset=".3" stop-color="#343840"/><stop offset=".48" stop-color="#080a0e"/><stop offset=".68" stop-color="#20232a"/><stop offset=".84" stop-color="#090b10"/><stop offset="1" stop-color="#454953"/>
-  </linearGradient>
-  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
-    <stop stop-color="#6e461b"/><stop offset=".18" stop-color="#d8ad5a"/><stop offset=".38" stop-color="#fff0b1"/><stop offset=".56" stop-color="#b98232"/><stop offset=".76" stop-color="#f2d48a"/><stop offset="1" stop-color="#6f481e"/>
-  </linearGradient>
-  <linearGradient id="nib" x1="0" y1="0" x2="1" y2="1">
-    <stop stop-color="#fff0bd"/><stop offset=".22" stop-color="#b88a43"/><stop offset=".48" stop-color="#f4d88f"/><stop offset=".72" stop-color="#765024"/><stop offset="1" stop-color="#e4bd70"/>
-  </linearGradient>
-  <linearGradient id="clip" x1="0" y1="0" x2="1" y2="0">
-    <stop stop-color="#8c632a"/><stop offset=".35" stop-color="#ffe6a0"/><stop offset=".58" stop-color="#b78638"/><stop offset=".82" stop-color="#f8d987"/><stop offset="1" stop-color="#70491f"/>
-  </linearGradient>
-  <filter id="shadow" x="-30%" y="-80%" width="160%" height="280%"><feGaussianBlur stdDeviation="9"/></filter>
-  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+ <linearGradient id="body" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d8ccef"/><stop offset=".17" stop-color="#a894d2"/><stop offset=".43" stop-color="#8873b8"/><stop offset=".65" stop-color="#6f5b9c"/><stop offset=".84" stop-color="#9e8ac7"/><stop offset="1" stop-color="#d7c9ee"/></linearGradient>
+ <linearGradient id="metal" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#aaa7b5"/><stop offset=".24" stop-color="#fff"/><stop offset=".48" stop-color="#d4d0dc"/><stop offset=".7" stop-color="#85818f"/><stop offset="1" stop-color="#f4f1fa"/></linearGradient>
+ <linearGradient id="grip" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#51416f"/><stop offset=".25" stop-color="#8772b1"/><stop offset=".5" stop-color="#b7a6dd"/><stop offset=".75" stop-color="#7864a5"/><stop offset="1" stop-color="#51416f"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-80%" width="160%" height="280%"><feGaussianBlur stdDeviation="9"/></filter>
+ <filter id="glow" x="-40%" y="-60%" width="180%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
 </defs>
-<ellipse cx="285" cy="218" rx="202" ry="19" fill="#000" opacity=".62" filter="url(#shadow)" transform="rotate(-25 285 218)"/>
-<ellipse cx="287" cy="211" rx="166" ry="5" fill="#83bfff" opacity=".12" filter="url(#glow)" transform="rotate(-25 287 211)"/>
-<g transform="rotate(-25 280 150)">
-  <!-- rear cap -->
-  <path d="M394 115 Q410 113 421 126 L440 149 L421 172 Q410 184 394 181Z" fill="#090b10" stroke="url(#gold)" stroke-width="2"/>
-  <path d="M405 120 Q418 123 429 149 Q418 175 405 177Z" fill="url(#lacquer)" stroke="#777b82" stroke-width="1"/>
-  <!-- barrel -->
-  <path d="M111 117 L395 117 Q405 117 405 130 L405 168 Q405 180 395 180 L111 180 L86 149Z" fill="#050609" stroke="#737781" stroke-width="2.5" stroke-linejoin="round"/>
-  <path d="M112 121 L393 121 Q399 121 399 132 L399 166 Q399 176 393 176 L112 176 L94 149Z" fill="url(#lacquer)" stroke="#393d45" stroke-width="1.2"/>
-  <path d="M112 125 L391 125 Q395 125 395 132 L395 137 L112 137 L99 149Z" fill="#fff" opacity=".13"/>
-  <path d="M120 126 L120 174" stroke="#b8bdc7" stroke-width="1.3" opacity=".45"/>
-  <path d="M128 124 L128 174" stroke="#fff" stroke-width=".7" opacity=".28"/>
-  <!-- cap rings -->
-  <path d="M365 118 L365 179 M371 118 L371 179 M379 118 L379 179" stroke="url(#gold)" stroke-width="3"/>
-  <path d="M367 119 L367 178" stroke="#fff0b1" stroke-width=".8" opacity=".7"/>
-  <!-- clip -->
-  <path d="M190 119 L199 96 Q203 88 211 94 L234 119 L225 124 L207 105 L201 122Z" fill="url(#clip)" stroke="#8b642d" stroke-width="1.2" stroke-linejoin="round"/>
-  <path d="M203 98 Q207 96 210 101 L222 115" stroke="#fff0bd" stroke-width="1.8" stroke-linecap="round" opacity=".85"/>
-  <!-- gold band -->
-  <path d="M141 118 L150 118 L150 180 L141 180Z" fill="url(#gold)"/>
-  <path d="M154 119 L157 119 L157 179 L154 179Z" fill="#f8e2a0" opacity=".8"/>
-  <!-- nib section -->
-  <path d="M111 121 L88 133 L57 149 L88 165 L111 176 L99 149Z" fill="url(#nib)" stroke="#f3d58c" stroke-width="1.5" stroke-linejoin="round"/>
-  <path d="M102 126 L77 149 L102 172" stroke="#fff0bd" stroke-width="1.4" opacity=".8"/>
-  <path d="M96 149 L64 149" stroke="#3a2816" stroke-width="1.6"/>
-  <path d="M80 145 L72 149 L80 153" stroke="#3a2816" stroke-width="1.2"/>
-  <circle cx="93" cy="149" r="3" fill="#302012" stroke="#f6dc9c" stroke-width="1"/>
-  <!-- fine engraved line -->
-  <path d="M245 149 L330 149" stroke="#b9bec8" stroke-width=".7" opacity=".42"/>
-  <path d="M245 153 L315 153" stroke="#000" stroke-width=".8" opacity=".55"/>
+<ellipse cx="285" cy="210" rx="198" ry="17" fill="#66538f" opacity=".22" filter="url(#shadow)" transform="rotate(-24 285 210)"/>
+<ellipse cx="284" cy="205" rx="150" ry="7" fill="#c8b7ef" opacity=".28" filter="url(#glow)" transform="rotate(-24 284 205)"/>
+<g transform="rotate(-24 280 150)">
+ <!-- eraser cap -->
+ <path d="M392 116 Q406 116 413 129 L430 149 L413 169 Q406 182 392 182Z" fill="url(#metal)" stroke="#827c91" stroke-width="1.5"/>
+ <path d="M402 121 Q412 124 421 149 Q412 174 402 177Z" fill="url(#body)" stroke="#78649f" stroke-width="1.2"/>
+ <!-- barrel -->
+ <path d="M112 117 L394 117 Q403 117 403 129 L403 170 Q403 181 394 181 L112 181 L88 149Z" fill="url(#body)" stroke="#6c588f" stroke-width="2"/>
+ <path d="M112 123 L390 123 Q396 123 396 131 L396 166 Q396 175 390 175 L112 175 L97 149Z" fill="#8b77b6" opacity=".35"/>
+ <path d="M112 122 L390 122 Q396 122 396 131 L396 136 L112 136 L98 149Z" fill="#fff" opacity=".23"/>
+ <path d="M120 125 L120 173" stroke="#f5efff" stroke-width="1.5" opacity=".7"/>
+ <path d="M127 124 L127 174" stroke="#5d4a83" stroke-width="1" opacity=".5"/>
+ <!-- clip -->
+ <path d="M192 119 L202 96 Q205 89 213 94 L238 119 L228 125 L209 105 L203 122Z" fill="url(#metal)" stroke="#8f879f" stroke-width="1.3" stroke-linejoin="round"/>
+ <path d="M205 98 Q209 96 212 101 L225 116" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+ <!-- rings -->
+ <path d="M144 118 L151 118 L151 180 L144 180Z" fill="url(#metal)"/>
+ <path d="M155 119 L158 119 L158 179 L155 179Z" fill="#eee9f7"/>
+ <path d="M366 118 L366 180 M373 118 L373 180 M380 119 L380 179" stroke="url(#metal)" stroke-width="3"/>
+ <!-- grip -->
+ <path d="M112 122 L92 132 L66 149 L92 166 L112 176 L100 149Z" fill="url(#grip)" stroke="#6f5a9b" stroke-width="1.5" stroke-linejoin="round"/>
+ <path d="M104 128 L83 149 L104 170" stroke="#d8ccef" stroke-width="1.4" opacity=".85"/>
+ <path d="M99 149 L70 149" stroke="#4a3c65" stroke-width="2"/>
+ <path d="M82 145 L73 149 L82 153" stroke="#e7def9" stroke-width="1.2"/>
+ <circle cx="98" cy="149" r="2.5" fill="#4b3b68" stroke="#ded2f7" stroke-width="1"/>
+ <!-- graphite lead -->
+ <path d="M66 149 L53 149" stroke="#4c4656" stroke-width="2" stroke-linecap="round"/>
+ <path d="M53 149 L47 149" stroke="#b5afc1" stroke-width="1.2" stroke-linecap="round"/>
+ <path d="M244 149 L330 149" stroke="#f3ecff" stroke-width=".8" opacity=".45"/>
+ <path d="M245 153 L315 153" stroke="#4d3c70" stroke-width=".8" opacity=".5"/>
 </g>
-<path d="M72 78 C96 52 123 45 154 53" stroke="#8abfff" stroke-width="1.3" stroke-dasharray="2 8" opacity=".42"/>
-<path d="M454 206 l4 10 10 4-10 4-4 10-4-10-10-4 10-4z" fill="#d8b76e" opacity=".8"/>
-<circle cx="115" cy="217" r="2" fill="#8abfff" opacity=".6"/>
+<path d="M72 78 C96 52 123 45 154 53" stroke="#a894d2" stroke-width="1.4" stroke-dasharray="2 8" opacity=".6"/>
+<path d="M454 206 l4 10 10 4-10 4-4 10-4-10-10-4 10-4z" fill="#a894d2" opacity=".85"/>
+<circle cx="115" cy="217" r="2.5" fill="#8972bc" opacity=".7"/>
 </svg>
