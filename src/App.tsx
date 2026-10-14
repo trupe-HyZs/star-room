@@ -803,29 +803,28 @@ function App() {
               }}
               onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openBibleBook() } }}
               onPointerDown={event => {
+                if (bibleOpening) return
                 bookPointerStart.current = { x: event.clientX, y: event.clientY, dragged: false }
-                if (event.pointerType === 'touch') event.currentTarget.setPointerCapture(event.pointerId)
+                event.currentTarget.setPointerCapture(event.pointerId)
               }}
               onPointerMove={event => {
                 if (bibleOpening) return
                 const start = bookPointerStart.current
-                if (event.pointerType === 'touch') {
-                  if (!start) return
+                if (start) {
                   const dx = event.clientX - start.x
                   const dy = event.clientY - start.y
-                  if (Math.hypot(dx, dy) > 7) start.dragged = true
+                  if (Math.hypot(dx, dy) > 3) start.dragged = true
                   if (start.dragged) {
-                    setBookTilt({
-                      x: Math.max(-15, Math.min(15, dx * .55)),
-                      y: Math.max(-12, Math.min(12, dy * -.42)),
-                    })
+                    setBookTilt(current => ({ x: Math.max(-88, Math.min(88, current.x - dy * .65)), y: current.y + dx * .8 }))
+                    start.x = event.clientX
+                    start.y = event.clientY
                   }
                   return
                 }
                 const rect = event.currentTarget.getBoundingClientRect()
                 const horizontal = (event.clientX - rect.left) / rect.width
                 const vertical = (event.clientY - rect.top) / rect.height
-                setBookTilt({ x: (0.5 - horizontal) * 10, y: (0.5 - vertical) * 8 })
+                setBookTilt(current => ({ x: (0.5 - vertical) * 18, y: current.y + (horizontal - .5) * .8 }))
               }}
               onPointerUp={event => {
                 if (bookPointerStart.current?.dragged) {
@@ -835,8 +834,8 @@ function App() {
                 bookPointerStart.current = null
                 if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId)
               }}
-              onPointerCancel={() => { bookPointerStart.current = null; bookDragRef.current = false; setBookTilt({ x: 0, y: 0 }) }}
-              onPointerLeave={() => { if (!bookPointerStart.current) setBookTilt({ x: 0, y: 0 }) }}>
+              onPointerCancel={() => { bookPointerStart.current = null; bookDragRef.current = false }}
+              onPointerLeave={() => { if (!bookPointerStart.current) setBookTilt(current => ({ ...current, x: current.x * .85 })) }}>
               <div className="bible-book-pages" /><div className="bible-book-back" />
               <div className="bible-book-cover" aria-label="Capa de couro escuro">
                 <div className="book-cover-heading">HOLY BIBLE</div>
@@ -846,7 +845,7 @@ function App() {
           <div className="book-entry-copy">
             <span className="book-entry-kicker">STAR ROOM / BÍBLIA</span>
             <h1>Um livro.<br /><span>Muitas páginas.</span></h1>
-            <p className="book-touch-instruction">Toca na capa para abrir. Move o cursor para inclinar o livro.</p>
+            <p className="book-touch-instruction">Arrasta para girar em 360°. Toca na capa para abrir.</p>
             <div className="book-entry-pickers">
               <label><span>CONTINUAR EM</span><select value={bookId} onChange={event => { setBookId(Number(event.target.value)); setChapter(1) }} aria-label="Escolher livro para abrir">{books.map(book => <option value={book.id} key={book.id}>{book.name}</option>)}</select></label>
               <label><span>CAPÍTULO</span><select value={chapter} onChange={event => setChapter(Number(event.target.value))} aria-label="Escolher capítulo para abrir">{Array.from({ length: currentBook.chapters }, (_, index) => index + 1).map(number => <option value={number} key={number}>{number}</option>)}</select></label>
