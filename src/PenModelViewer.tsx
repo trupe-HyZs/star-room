@@ -220,7 +220,6 @@ export function PenModelViewer({
 
   return (
     <div
-      ref={mountRef}
       className={`pen-software-viewer ${className} ${isDragging ? 'is-dragging' : ''}`.trim()}
       role={interactive ? 'application' : 'img'}
       aria-label={label}
