@@ -158,7 +158,7 @@ export function PenModelViewer({
         renderer.domElement.style.width = '100%'
         renderer.domElement.style.height = '100%'
         renderer.domElement.style.overflow = 'visible'
-        mount.replaceChildren(renderer.domElement)
+        mount.appendChild(renderer.domElement)
 
         resizeObserver = new ResizeObserver(draw)
         resizeObserver.observe(mount)
@@ -231,6 +231,7 @@ export function PenModelViewer({
       onPointerCancel={handlePointerUp}
       onClick={interactive ? event => event.stopPropagation() : undefined}
     >
+      <div ref={mountRef} className="pen-software-viewer__render-host" aria-hidden="true" />
       {status !== 'ready' && (
         <>
           <img
